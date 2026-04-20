@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Executive Trip Book · HK & Canton Fair 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   ROOT & RESET
+═══════════════════════════════════════════════ */
+:root {
+  --hk:          #0B2740;
+  --hk-2:        #163d5e;
+  --hk-acc:      #D4A843;
+  --hk-acc-lt:   #FBF3E0;
+  --hk-mid:      #3A7CB5;
+  --hk-lt:       #E8F1F8;
+
+  --cf:          #6B1E0F;
+  --cf-2:        #9B3322;
+  --cf-acc:      #E8A84C;
+  --cf-acc-lt:   #FDF3E3;
+  --cf-mid:      #C0543A;
+  --cf-lt:       #FAF0EC;
+
+  --gcal-blue:   #1a73e8;
+  --gcal-green:  #0f9d58;
+  --gcal-red:    #d93025;
+  --gcal-yellow: #f9ab00;
+  --gcal-purple: #8430ce;
+  --gcal-teal:   #009688;
+  --gcal-pink:   #d81b60;
+  --gcal-sage:   #33b679;
+  --gcal-grape:  #7986cb;
+  --gcal-graphite:#5f6368;
+
+  --ink:         #1A1A2E;
+  --ink-2:       #4A4A6A;
+  --ink-3:       #9090A8;
+  --surface:     #FFFFFF;
+  --bg:          #F3F2EF;
+  --bg-2:        #ECEAE6;
+  --border:      rgba(0,0,0,0.07);
+  --border-2:    rgba(0,0,0,0.12);
+
+  --r:           12px;
+  --r-sm:        8px;
+  --r-lg:        16px;
+
+  --display:     'Playfair Display', Georgia, serif;
+  --body:        'Jost', system-ui, sans-serif;
+
+  --sh:          0 2px 10px rgba(0,0,0,0.06);
+  --sh-lg:       0 8px 28px rgba(0,0,0,0.1);
+  --sh-xl:       0 16px 48px rgba(0,0,0,0.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 14px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════════
+   HERO HEADER
+═══════════════════════════════════════════════ */
+.hero {
+  background: var(--hk);
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 0;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: rgba(212,168,67,0.07);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 40px; left: -80px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(58,124,181,0.1);
+  pointer-events: none;
+}
+.hero-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  padding: 26px 22px 16px;
+  gap: 12px;
+  position: relative; z-index: 2;
+}
+.hero-eyebrow {
+  font-family: var(--body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--hk-acc);
+  margin-bottom: 8px;
+}
+.hero-title {
+  font-family: var(--display);
+  font-size: clamp(26px, 7vw, 44px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.05;
+  margin-bottom: 6px;
+}
+.hero-title em { font-style: italic; color: var(--hk-acc); }
+.hero-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 300;
+  letter-spacing: .5px;
+}
+.hero-badge {
+  flex-shrink: 0;
+  text-align: right;
+}
+.hero-badge-inner {
+  display: inline-block;
+  background: rgba(212,168,67,0.15);
+  border: 1px solid rgba(212,168,67,0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.hero-badge-inner p {
+  font-size: 9px;
+  color: var(--hk-acc);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.hero-badge-inner .dates {
+  font-family: var(--display);
+  font-size: 11px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* Phase tabs */
+.hero-tabs {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  position: relative; z-index: 2;
+}
+.htab {
+  padding: 11px 4px;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.38);
+  font-family: var(--body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all .2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.htab .tab-icon { font-size: 14px; }
+.htab:hover { color: rgba(255,255,255,0.6); }
+.htab.active { color: #fff; border-bottom-color: var(--hk-acc); }
+.htab.active.cf-tab { color: var(--cf-acc); border-bottom-color: var(--cf-acc); }
+
+/* ═══════════════════════════════════════════════
+   LIVE BAR
+═══════════════════════════════════════════════ */
+.live-bar {
+  background: #0d1f33;
+  padding: 7px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.live-pulse {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #34c759;
+  flex-shrink: 0;
+  animation: pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.85)} }
+.live-bar-right {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+.lbtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .4px;
+  cursor: pointer;
+  font-family: var(--body);
+  transition: all .15s;
+}
+.lbtn:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.gcal-badge {
+  width: 13px; height: 13px;
+  background: #fff;
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 7px; font-weight: 700;
+  color: var(--gcal-blue);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════════════════════ */
+.main { padding: 14px; max-width: 900px; margin: 0 auto; }
+.view { display: none; animation: fadeIn .25s ease; }
+.view.active { display: block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+/* ═══════════════════════════════════════════════
+   OVERVIEW
+═══════════════════════════════════════════════ */
+.phase-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+@media(max-width:480px){ .phase-duo{grid-template-columns:1fr} }
+
+.pcard {
+  border-radius: var(--r);
+  padding: 20px;
+  cursor: pointer;
+  transition: transform .18s, box-shadow .18s;
+  position: relative;
+  overflow: hidden;
+}
+.pcard::after {
+  content: '→';
+  position: absolute;
+  bottom: 16px; right: 18px;
+  font-size: 18px;
+  opacity: .3;
+  transition: opacity .2s, transform .2s;
+}
+.pcard:hover { transform: translateY(-2px); box-shadow: var(--sh-xl); }
+.pcard:hover::after { opacity: .6; transform: translateX(3px); }
+.pcard.hk-card { background: linear-gradient(135deg, var(--hk) 0%, var(--hk-2) 100%); }
+.pcard.cf-card { background: linear-gradient(135deg, var(--cf) 0%, var(--cf-2) 100%); }
+.pcard-eyebrow { font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; opacity: .55; color: #fff; margin-bottom: 8px; }
+.pcard-title { font-family: var(--display); font-size: 21px; font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 4px; }
+.pcard-sub { font-size: 10px; color: rgba(255,255,255,.55); margin-bottom: 16px; }
+.pcard-stats { display: flex; gap: 18px; }
+.pstat { text-align: center; }
+.pstat-n { font-family: var(--display); font-size: 22px; font-weight: 700; color: #fff; line-height: 1; }
+.pstat-l { font-size: 8px; letter-spacing: 1px; text-transform: uppercase; opacity: .5; color: #fff; margin-top: 2px; }
+.pcard.hk-card .pstat-n { color: var(--hk-acc); }
+.pcard.cf-card .pstat-n { color: var(--cf-acc); }
+
+/* KPI row */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+@media(max-width:440px){ .kpi-row{grid-template-columns:repeat(2,1fr)} }
+.kcard {
+  background: var(--surface);
+  border-radius: var(--r);
+  padding: 14px 12px;
+  border: .5px solid var(--border);
+  box-shadow: var(--sh);
+  text-align: center;
+}
+.kcard-n {
+  font-family: var(--display);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.kcard-l { font-size: 9px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .8px; }
+
+/* Legend */
+.legend-panel {
+  background: var(--surface);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  border: .5px solid var(--border);
+  box-shadow: var(--sh);
+  margin-bottom: 14px;
+}
+.legend-title {
+  font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 10px;
+}
+.legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px,1fr));
+  gap: 7px;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 11px; color: var(--ink-2);
+}
+.ldot {
+  width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+}
+
+/* Section headers */
+.sh {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 18px 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid var(--border);
+}
+.sh h2 {
+  font-family: var(--display);
+  font-size: 19px; font-weight: 700; color: var(--ink);
+}
+.sh-link {
+  font-size: 11px; font-weight: 500; cursor: pointer;
+  text-decoration: none; transition: opacity .15s;
+  padding: 5px 12px; border-radius: 20px; border: .5px solid var(--border-2);
+}
+.sh-link.hk { color: var(--hk-mid); }
+.sh-link.cf { color: var(--cf-mid); }
+.sh-link:hover { opacity: .7; }
+
+/* ═══════════════════════════════════════════════
+   CONTACTS
+═══════════════════════════════════════════════ */
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px,1fr));
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.ccard {
+  background: var(--surface);
+  border-radius: var(--r);
+  padding: 14px;
+  border: .5px solid var(--border);
+  box-shadow: var(--sh);
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+}
+.cav {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 14px; font-weight: 700;
+  color: #fff; flex-shrink: 0;
+}
+.cinfo { flex: 1; min-width: 0; }
+.cname { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 1px; }
+.crole { font-size: 10px; color: var(--ink-3); margin-bottom: 3px; }
+.cco { font-size: 11px; color: var(--ink-2); font-weight: 500; margin-bottom: 7px; }
+.ctags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+/* ═══════════════════════════════════════════════
+   TAGS
+═══════════════════════════════════════════════ */
+.tag {
+  font-size: 9px; padding: 2px 8px; border-radius: 20px;
+  font-weight: 600; letter-spacing: .3px; white-space: nowrap;
+}
+.tag.conf  { background: #e8f5e9; color: #2e7d32; }
+.tag.pend  { background: #fff8e1; color: #e65100; }
+.tag.tent  { background: #f3e5f5; color: #7b1fa2; }
+.tag.prio  { background: #fce4ec; color: #c62828; }
+.tag.src   { background: #e3f2fd; color: #1565c0; }
+.tag.net   { background: #fce4ec; color: #ad1457; }
+.tag.trav  { background: #ede7f6; color: #4527a0; }
+.tag.gov   { background: #e0f2f1; color: #00695c; }
+.tag.gen   { background: var(--bg-2); color: var(--ink-2); }
+.tag.exec  { background: #1a1a2e; color: #D4A843; }
+
+/* ═══════════════════════════════════════════════
+   ACTION ITEMS
+═══════════════════════════════════════════════ */
+.aitem {
+  background: var(--surface);
+  border-radius: var(--r-sm);
+  border: .5px solid var(--border);
+  box-shadow: var(--sh);
+  padding: 11px 14px;
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-bottom: 7px;
+  transition: all .15s;
+}
+.acheck {
+  width: 18px; height: 18px; border-radius: 4px;
+  border: 1.5px solid var(--border-2);
+  flex-shrink: 0; margin-top: 1px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all .15s; font-size: 10px;
+}
+.acheck.done { background: var(--gcal-green); border-color: var(--gcal-green); color: #fff; }
+.atext { flex: 1; font-size: 12px; color: var(--ink); line-height: 1.5; }
+.atext.done { text-decoration: line-through; color: var(--ink-3); }
+.ameta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+.aowner { font-size: 9px; color: var(--ink-3); }
+.adue { font-size: 9px; padding: 2px 7px; border-radius: 20px; background: #fff3e0; color: #e65100; font-weight: 500; }
+.aphase { font-size: 8px; padding: 2px 6px; border-radius: 20px; font-weight: 600; letter-spacing: .4px; }
+.aphase.hk { background: var(--hk-lt); color: var(--hk); }
+.aphase.cf { background: var(--cf-lt); color: var(--cf); }
+
+/* ═══════════════════════════════════════════════
+   DAILY AGENDA — HK
+═══════════════════════════════════════════════ */
+.phase-banner {
+  border-radius: var(--r);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.phase-banner.hk { background: var(--hk); }
+.phase-banner.cf { background: var(--cf); }
+.pb-label { font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 5px; }
+.pb-title { font-family: var(--display); font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.pb-sub { font-size: 11px; color: rgba(255,255,255,.5); }
+.pb-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.pb-pill {
+  font-size: 10px; padding: 4px 10px; border-radius: 20px;
+  background: rgba(255,255,255,.12); color: rgba(255,255,255,.8);
+  border: .5px solid rgba(255,255,255,.15); font-weight: 500;
+}
+
+.day-block { margin-bottom: 4px; }
+.day-head {
+  display: flex; align-items: center; gap: 12px;
+  margin: 18px 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid var(--border);
+}
+.day-chip {
+  width: 42px; height: 42px; border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.day-chip.hk { background: var(--hk); }
+.day-chip.cf { background: var(--cf); }
+.day-chip-n { font-family: var(--display); font-size: 18px; font-weight: 700; color: #fff; line-height: 1; }
+.day-chip-m { font-size: 7px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,.6); margin-top: 1px; }
+.day-head-info { flex: 1; min-width: 0; }
+.day-head-info h3 { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--ink); }
+.day-head-info p { font-size: 10px; color: var(--ink-3); margin-top: 2px; }
+.day-badge {
+  font-size: 8px; padding: 3px 9px; border-radius: 20px;
+  font-weight: 600; letter-spacing: .5px; text-transform: uppercase; flex-shrink: 0;
+}
+.day-badge.hk { background: var(--hk-lt); color: var(--hk); }
+.day-badge.cf { background: var(--cf-lt); color: var(--cf); }
+
+/* Event cards */
+.ev-list { display: flex; flex-direction: column; gap: 7px; }
+.ev {
+  background: var(--surface);
+  border-radius: var(--r);
+  border: .5px solid var(--border);
+  box-shadow: var(--sh);
+  padding: 13px 14px;
+  display: grid;
+  grid-template-columns: 54px 1fr auto;
+  gap: 12px;
+  align-items: start;
+  cursor: pointer;
+  transition: all .18s;
+  position: relative;
+}
+.ev:hover { box-shadow: var(--sh-lg); transform: translateX(2px); }
+.ev::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 10px; bottom: 10px;
+  width: 3px; border-radius: 3px;
+  background: var(--ev-color, transparent);
+}
+
+.ev-time { text-align: center; padding-top: 1px; }
+.ev-t { font-size: 12px; font-weight: 600; color: var(--ink-2); line-height: 1.3; }
+.ev-d { font-size: 9px; color: var(--ink-3); margin-top: 2px; }
+.ev-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  margin: 7px auto 0;
+}
+
+.ev-body {}
+.ev-title { font-family: var(--display); font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 3px; line-height: 1.3; }
+.ev-company { font-size: 11px; color: var(--ink-2); margin-bottom: 4px; }
+.ev-loc { font-size: 10px; color: var(--ink-3); margin-bottom: 6px; display: flex; align-items: center; gap: 3px; }
+.ev-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 5px; }
+.ev-notes { font-size: 10px; color: var(--ink-3); line-height: 1.6; margin-top: 4px; border-top: .5px solid var(--border); padding-top: 5px; }
+.ev-attendees { font-size: 10px; color: var(--ink-3); margin-top: 4px; }
+
+.ev-acts { display: flex; flex-direction: column; gap: 5px; }
+.ebtn {
+  padding: 4px 9px; border-radius: 5px; border: .5px solid var(--border);
+  background: transparent; font-size: 9px; cursor: pointer;
+  color: var(--ink-3); font-family: var(--body); transition: all .15s;
+  white-space: nowrap; font-weight: 500;
+}
+.ebtn:hover { background: var(--bg); color: var(--ink); }
+.ebtn.hk-edit { color: var(--hk-mid); border-color: rgba(58,124,181,.3); }
+.ebtn.cf-edit { color: var(--cf-mid); border-color: rgba(192,84,58,.3); }
+.ebtn.del { color: #c62828; border-color: rgba(198,40,40,.2); }
+
+/* ═══════════════════════════════════════════════
+   CANTON FAIR SPECIFIC
+═══════════════════════════════════════════════ */
+.cf-obj-card {
+  background: var(--cf-lt);
+  border-radius: var(--r);
+  border-left: 3px solid var(--cf-mid);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.cf-obj-title { font-family: var(--display); font-size: 15px; font-weight: 700; color: var(--cf); margin-bottom: 8px; }
+.cf-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.cf-pill {
+  background: #fff; border-radius: 6px;
+  padding: 4px 10px; font-size: 10px; font-weight: 500;
+  color: var(--cf); border: .5px solid rgba(107,30,15,.15);
+}
+
+.hall-card {
+  background: var(--surface);
+  border-radius: var(--r);
+  border: .5px solid var(--border);
+  box-shadow: var(--sh);
+  padding: 13px 14px;
+  margin-bottom: 8px;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.hall-num {
+  width: 38px; height: 38px; border-radius: 9px;
+  background: var(--cf); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 15px; font-weight: 700;
+  flex-shrink: 0;
+}
+.hall-body { flex: 1; }
+.hall-body h4 { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+.hall-body p { font-size: 10px; color: var(--ink-3); margin-bottom: 7px; }
+.hall-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+/* ═══════════════════════════════════════════════
+   LOGISTICS
+═══════════════════════════════════════════════ */
+.log-card {
+  background: var(--surface);
+  border-radius: var(--r);
+  border: .5px solid var(--border);
+  box-shadow: var(--sh);
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+.log-ico {
+  width: 38px; height: 38px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.log-ico.fl { background: var(--hk-lt); }
+.log-ico.ht { background: #fce4ec; }
+.log-ico.tr { background: #e8f5e9; }
+.log-body h4 { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+.log-body p { font-size: 10px; color: var(--ink-3); line-height: 1.5; }
+.log-stat {
+  font-size: 9px; padding: 3px 9px; border-radius: 20px;
+  font-weight: 600; white-space: nowrap;
+}
+.log-stat.conf { background: #e8f5e9; color: #2e7d32; }
+.log-stat.pend { background: #fff8e1; color: #e65100; }
+
+/* Logistics card edit actions */
+.log-card {
+  cursor: pointer;
+  transition: box-shadow .18s, transform .15s;
+}
+.log-card:hover { box-shadow: var(--sh-lg); transform: translateX(2px); }
+.log-acts {
+  display: flex; flex-direction: column; gap: 5px; flex-shrink: 0; margin-left: 6px;
+}
+.log-ebtn {
+  padding: 4px 9px; border-radius: 5px; border: .5px solid var(--border);
+  background: transparent; font-size: 9px; cursor: pointer;
+  color: var(--ink-3); font-family: var(--body); transition: all .15s;
+  white-space: nowrap; font-weight: 500;
+}
+.log-ebtn:hover { background: var(--bg); color: var(--ink); }
+.log-ebtn.edit { color: var(--hk-mid); border-color: rgba(58,124,181,.3); }
+.log-ebtn.del  { color: #c62828; border-color: rgba(198,40,40,.2); }
+.log-type-badge {
+  font-size: 8px; padding: 2px 7px; border-radius: 20px; font-weight: 600;
+  letter-spacing: .4px; text-transform: uppercase; white-space: nowrap;
+}
+.log-type-badge.fl { background: var(--hk-lt); color: var(--hk); }
+.log-type-badge.ht { background: #fce4ec; color: #880e4f; }
+.log-type-badge.tr { background: #e8f5e9; color: #1b5e20; }
+
+/* ═══════════════════════════════════════════════
+   FORM / ADD PANEL
+═══════════════════════════════════════════════ */
+.form-panel {
+  background: var(--surface);
+  border-radius: var(--r);
+  border: .5px solid var(--border);
+  box-shadow: var(--sh);
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.form-panel h3 { font-family: var(--display); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 14px; }
+.fg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media(max-width:480px){ .fg{grid-template-columns:1fr} }
+.fgroup { display: flex; flex-direction: column; gap: 4px; }
+.fgroup.full { grid-column: 1/-1; }
+.fgroup label { font-size: 9px; font-weight: 600; color: var(--ink-3); text-transform: uppercase; letter-spacing: .8px; }
+.fgroup input, .fgroup select, .fgroup textarea {
+  border: .5px solid rgba(0,0,0,.15);
+  border-radius: var(--r-sm);
+  padding: 9px 11px;
+  font-size: 12px;
+  background: #EDD9C0;
+  color: var(--ink);
+  outline: none;
+  font-family: var(--body);
+  transition: all .15s;
+}
+.fgroup input:focus, .fgroup select:focus, .fgroup textarea:focus {
+  border-color: var(--hk-mid);
+  box-shadow: 0 0 0 2px rgba(58,124,181,.12);
+  background: #E4C9A8;
+}
+.fgroup textarea { resize: vertical; min-height: 72px; }
+.form-footer { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
+.fbtn {
+  padding: 10px 20px; border-radius: var(--r-sm);
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  font-family: var(--body); transition: all .15s; border: none;
+}
+.fbtn.primary { background: var(--hk); color: #fff; }
+.fbtn.primary:hover { background: var(--hk-2); }
+.fbtn.primary.cf { background: var(--cf); }
+.fbtn.primary.cf:hover { background: var(--cf-2); }
+.fbtn.ghost { background: transparent; color: var(--ink-3); border: .5px solid var(--border-2); }
+.fbtn.export { background: var(--hk-acc-lt); color: #5C4033; border: .5px solid var(--hk-acc); margin-left: auto; display: flex; align-items: center; gap: 5px; }
+.fbtn.export:hover { background: var(--hk-acc); color: #fff; }
+.cal-hint { font-size: 9px; color: var(--ink-3); display: flex; align-items: center; gap: 4px; margin-top: 6px; grid-column: 1/-1; }
+
+/* ═══════════════════════════════════════════════
+   MODAL DRAWER
+═══════════════════════════════════════════════ */
+.moverlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 500;
+  display: none; align-items: flex-end; justify-content: center;
+}
+.moverlay.open { display: flex; }
+.mdrawer {
+  background: var(--surface);
+  border-radius: 20px 20px 0 0;
+  width: 100%; max-width: 580px;
+  padding: 22px 18px 36px;
+  max-height: 92vh; overflow-y: auto;
+  animation: slideUp .25s ease;
+  position: relative;
+}
+@keyframes slideUp { from{transform:translateY(40px);opacity:0} to{transform:none;opacity:1} }
+.mdhandle { width: 34px; height: 3px; border-radius: 2px; background: rgba(0,0,0,.12); margin: 0 auto 18px; }
+.mdtitle { font-family: var(--display); font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.mdsub { font-size: 10px; color: var(--ink-3); margin-bottom: 18px; }
+.mdclose { position: absolute; top: 18px; right: 16px; background: none; border: none; font-size: 18px; cursor: pointer; color: var(--ink-3); line-height: 1; padding: 4px; }
+
+/* ═══════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════ */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  padding: 10px 20px; border-radius: 24px; font-size: 12px; font-weight: 500;
+  z-index: 600; white-space: nowrap; pointer-events: none;
+  opacity: 0; transition: opacity .3s; max-width: 88vw; text-align: center;
+}
+.toast.show { opacity: 1; }
+.toast.hk  { background: var(--hk); color: #fff; }
+.toast.cf  { background: var(--cf); color: #fff; }
+.toast.ok  { background: #2e7d32; color: #fff; }
+.toast.exp { background: #4A6741; color: #fff; }
+
+/* ═══════════════════════════════════════════════
+   MISC UTILITIES
+═══════════════════════════════════════════════ */
+.divider { height: 1px; background: var(--border); margin: 16px 0; }
+.empty { text-align: center; padding: 28px; color: var(--ink-3); font-size: 12px; }
+.sticky-phase-bar {
+  position: sticky; top: 36px; z-index: 100;
+  padding: 6px 18px; font-size: 9px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px;
+}
+.sticky-phase-bar.hk { background: var(--hk-lt); color: var(--hk); }
+.sticky-phase-bar.cf { background: var(--cf-lt); color: var(--cf); }
+.sep { width: 1px; height: 12px; background: currentColor; opacity: .2; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <div class="hero-eyebrow">Executive Trip Book · Confidential · 2026</div>
+      <div class="hero-title">Hong Kong<br>&amp; <em>Canton Fair</em></div>
+      <div class="hero-sub">Business Delegation · Phase 3 Sourcing Mission</div>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-inner">
+        <p>Travel Window</p>
+        <div class="dates">HK: 27 Apr–1 May 2026<br>Canton: 1–6 May 2026</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-tabs">
+    <button class="htab active" onclick="switchView('overview',this)">
+      <span class="tab-icon">◈</span>Overview
+    </button>
+    <button class="htab" onclick="switchView('hk',this)">
+      <span class="tab-icon">🇭🇰</span>Hong Kong
+    </button>
+    <button class="htab cf-tab" onclick="switchView('cf',this)">
+      <span class="tab-icon">🇨🇳</span>Canton Fair
+    </button>
+    <button class="htab" onclick="switchView('logistics',this)">
+      <span class="tab-icon">✈</span>Logistics
+    </button>
+    <button class="htab" onclick="switchView('actions',this)">
+      <span class="tab-icon">✓</span>Actions
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════ LIVE BAR ═══════════════════ -->
+<div class="live-bar">
+  <div class="live-pulse"></div>
+  <span>Live · Updated <span id="ts">now</span></span>
+  <span style="opacity:.3;margin:0 2px">|</span>
+  <span id="viewcount">1 partner viewing</span>
+  <div class="live-bar-right">
+    <button class="lbtn" onclick="exportICS('google')"><div class="gcal-badge">G</div>Google Cal</button>
+    <button class="lbtn" onclick="exportICS('ios')">📅 iOS Cal</button>
+    <button class="lbtn" onclick="doExportExcel()">⬇ Excel</button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ══════════ OVERVIEW ══════════ -->
+<div class="view active" id="view-overview">
+  <div class="phase-duo">
+    <div class="pcard hk-card" onclick="goView('hk')">
+      <div class="pcard-eyebrow">Phase 1 · 27 Apr – 1 May 2026</div>
+      <div class="pcard-title">Hong Kong<br>Business</div>
+      <div class="pcard-sub">5 days · Central & Kowloon</div>
+      <div class="pcard-stats">
+        <div class="pstat"><div class="pstat-n" id="ov-hk-m">0</div><div class="pstat-l">Meetings</div></div>
+        <div class="pstat"><div class="pstat-n" id="ov-hk-c">0</div><div class="pstat-l">Confirmed</div></div>
+        <div class="pstat"><div class="pstat-n" id="ov-hk-p">0</div><div class="pstat-l">Pending</div></div>
+      </div>
+    </div>
+    <div class="pcard cf-card" onclick="goView('cf')">
+      <div class="pcard-eyebrow">Phase 2 · 1 May – 6 May 2026</div>
+      <div class="pcard-title">Canton Fair<br>Phase 3</div>
+      <div class="pcard-sub">5 days · Guangzhou, China</div>
+      <div class="pcard-stats">
+        <div class="pstat"><div class="pstat-n" id="ov-cf-m">0</div><div class="pstat-l">Sessions</div></div>
+        <div class="pstat"><div class="pstat-n">5</div><div class="pstat-l">Categories</div></div>
+        <div class="pstat"><div class="pstat-n">14</div><div class="pstat-l">Targets</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kcard"><div class="kcard-n" style="color:var(--hk)" id="kpi-hk">0</div><div class="kcard-l">HK Meetings</div></div>
+    <div class="kcard"><div class="kcard-n" style="color:var(--cf)" id="kpi-cf">0</div><div class="kcard-l">CF Sessions</div></div>
+    <div class="kcard"><div class="kcard-n" style="color:var(--gcal-green)" id="kpi-conf">0</div><div class="kcard-l">Confirmed</div></div>
+    <div class="kcard"><div class="kcard-n" style="color:var(--gcal-yellow)" id="kpi-open">0</div><div class="kcard-l">Open Actions</div></div>
+  </div>
+
+  <div class="legend-panel">
+    <div class="legend-title">Google Calendar Color Key</div>
+    <div class="legend-grid">
+      <div class="legend-item"><div class="ldot" style="background:var(--gcal-blue)"></div>Partner Meetings</div>
+      <div class="legend-item"><div class="ldot" style="background:var(--gcal-green)"></div>Confirmed</div>
+      <div class="legend-item"><div class="ldot" style="background:var(--gcal-red)"></div>Priority / Urgent</div>
+      <div class="legend-item"><div class="ldot" style="background:var(--gcal-yellow)"></div>Pending / TBC</div>
+      <div class="legend-item"><div class="ldot" style="background:var(--gcal-purple)"></div>Executive Only</div>
+      <div class="legend-item"><div class="ldot" style="background:var(--gcal-teal)"></div>Canton Fair Halls</div>
+      <div class="legend-item"><div class="ldot" style="background:var(--gcal-pink)"></div>Networking / Social</div>
+      <div class="legend-item"><div class="ldot" style="background:var(--gcal-sage)"></div>Pre-arranged</div>
+      <div class="legend-item"><div class="ldot" style="background:var(--gcal-grape)"></div>Government / Regulatory</div>
+      <div class="legend-item"><div class="ldot" style="background:var(--gcal-graphite)"></div>Travel / Transfer</div>
+    </div>
+  </div>
+
+  <div class="sh"><h2>Key Contacts</h2></div>
+  <div class="contacts-grid" id="ov-contacts"></div>
+
+  <div class="sh"><h2>Open Actions</h2></div>
+  <div id="ov-actions"></div>
+</div>
+
+<!-- ══════════ HK VIEW ══════════ -->
+<div class="view" id="view-hk">
+  <div class="sticky-phase-bar hk">🇭🇰 Hong Kong Business Phase <div class="sep"></div> 27 Apr – 1 May 2026</div>
+
+  <div class="phase-banner hk" style="margin-top:12px">
+    <div class="pb-label">Phase 1 Objectives</div>
+    <div class="pb-title">Hong Kong Business Meetings</div>
+    <div class="pb-sub">Partner alignment · Market entry · Legal & Compliance · Distribution strategy</div>
+    <div class="pb-pills">
+      <span class="pb-pill">Strategic Partnership Review</span>
+      <span class="pb-pill">JV Structure Negotiation</span>
+      <span class="pb-pill">Distribution Expansion</span>
+      <span class="pb-pill">Regulatory Briefing</span>
+      <span class="pb-pill">Market Intelligence</span>
+      <span class="pb-pill">Deal Closing</span>
+    </div>
+  </div>
+
+  <div class="sh">
+    <h2>HK Agenda by Day</h2>
+    <a class="sh-link hk" onclick="openAdd('hk')">+ Add Meeting</a>
+  </div>
+  <div id="hk-agenda"></div>
+</div>
+
+<!-- ══════════ CANTON FAIR VIEW ══════════ -->
+<div class="view" id="view-cf">
+  <div class="sticky-phase-bar cf">🇨🇳 Canton Fair Phase 3 <div class="sep"></div> 1 May – 6 May 2026 · Guangzhou</div>
+
+  <div class="phase-banner cf" style="margin-top:12px">
+    <div class="pb-label">Phase 2 Objectives</div>
+    <div class="pb-title">Canton Fair — Sourcing Mission</div>
+    <div class="pb-sub">Category exploration · Exhibitor meetings · Supplier shortlisting · Negotiation</div>
+    <div class="pb-pills">
+      <span class="pb-pill">Office & Stationery</span>
+      <span class="pb-pill">Medical & Health</span>
+      <span class="pb-pill">Food & Beverages</span>
+      <span class="pb-pill">Gifts & Home Décor</span>
+      <span class="pb-pill">Sports & Leisure</span>
+      <span class="pb-pill">Supplier Shortlist</span>
+    </div>
+  </div>
+
+  <div class="sh"><h2>Sourcing Priorities</h2><a class="sh-link cf" onclick="openAdd('cf')">+ Add Exhibitor</a></div>
+  <div id="cf-halls"></div>
+
+  <div class="sh"><h2>Daily Fair Schedule</h2></div>
+  <div id="cf-agenda"></div>
+</div>
+
+<!-- ══════════ LOGISTICS ══════════ -->
+<div class="view" id="view-logistics">
+  <div class="sh" style="margin-top:8px">
+    <h2>Flights</h2>
+    <a class="sh-link hk" onclick="openLogAdd('fl')">+ Add Flight</a>
+  </div>
+  <div id="log-flights"></div>
+  <div class="divider"></div>
+  <div class="sh">
+    <h2>Hotels &amp; Accommodation</h2>
+    <a class="sh-link hk" onclick="openLogAdd('ht')">+ Add Hotel</a>
+  </div>
+  <div id="log-hotels"></div>
+  <div class="divider"></div>
+  <div class="sh">
+    <h2>Ground Transfers</h2>
+    <a class="sh-link hk" onclick="openLogAdd('tr')">+ Add Transfer</a>
+  </div>
+  <div id="log-ground"></div>
+  <div style="background:var(--hk-lt);border-radius:var(--r);padding:14px 16px;margin-top:10px;border:.5px solid rgba(11,39,64,.1)">
+    <div style="font-size:10px;font-weight:600;color:var(--hk);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Important Travel Notes</div>
+    <ul style="font-size:11px;color:var(--ink-2);line-height:1.9;padding-left:14px">
+      <li>China visa required — ensure all delegates have valid visas before departure</li>
+      <li>Canton Fair badge registration must be completed online before arrival</li>
+      <li>Currency: HKD in Hong Kong · RMB/CNY in Guangzhou (carry cash)</li>
+      <li>VPN required for standard apps in mainland China — set up before crossing border</li>
+      <li>WeChat Pay strongly recommended for Guangzhou transactions</li>
+      <li>Dress code: smart business for HK meetings; comfortable walking shoes for Canton Fair</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════ ACTIONS + ADD ══════════ -->
+<div class="view" id="view-actions">
+  <div class="sh" style="margin-top:8px">
+    <h2>All Action Items</h2>
+    <a class="sh-link hk" onclick="promptAddAction()">+ Add Action</a>
+  </div>
+  <div id="all-actions"></div>
+
+  <div class="divider"></div>
+  <div class="form-panel">
+    <h3>Add / Edit Meeting or Event</h3>
+    <div class="fg">
+      <div class="fgroup">
+        <label>Phase</label>
+        <select id="qp">
+          <option value="hk">🇭🇰 Hong Kong</option>
+          <option value="cf">🇨🇳 Canton Fair</option>
+        </select>
+      </div>
+      <div class="fgroup">
+        <label>Calendar Color</label>
+        <select id="qcol">
+          <option value="gcal-blue">🔵 Partner Meeting</option>
+          <option value="gcal-green">🟢 Confirmed</option>
+          <option value="gcal-red">🔴 Priority / Urgent</option>
+          <option value="gcal-yellow">🟡 Pending / TBC</option>
+          <option value="gcal-purple">🟣 Executive Only</option>
+          <option value="gcal-teal">🩵 Canton Fair Hall</option>
+          <option value="gcal-pink">🩷 Networking / Social</option>
+          <option value="gcal-sage">🟩 Pre-arranged</option>
+          <option value="gcal-grape">🪻 Government / Regulatory</option>
+          <option value="gcal-graphite">⚫ Travel</option>
+        </select>
+      </div>
+      <div class="fgroup">
+        <label>Date</label>
+        <input type="date" id="qdate" min="2026-04-27" max="2026-05-06">
+      </div>
+      <div class="fgroup">
+        <label>Time</label>
+        <input type="time" id="qtime">
+      </div>
+      <div class="fgroup">
+        <label>Duration</label>
+        <input type="text" id="qdur" placeholder="e.g. 1h 30m">
+      </div>
+      <div class="fgroup">
+        <label>Status</label>
+        <select id="qstat">
+          <option value="confirmed">Confirmed</option>
+          <option value="pending">Pending</option>
+          <option value="tentative">Tentative</option>
+        </select>
+      </div>
+      <div class="fgroup full">
+        <label>Meeting / Event Title</label>
+        <input type="text" id="qtitle" placeholder="e.g. Strategic Partnership Review — ABC Ltd">
+      </div>
+      <div class="fgroup full">
+        <label>Company / Exhibitor</label>
+        <input type="text" id="qco" placeholder="Company or exhibitor name">
+      </div>
+      <div class="fgroup full">
+        <label>Venue / Hall / Address</label>
+        <input type="text" id="qvenue" placeholder="Office address, hotel, or fair hall number">
+      </div>
+      <div class="fgroup full">
+        <label>Attendees (comma separated)</label>
+        <input type="text" id="qatt" placeholder="Names of meeting participants">
+      </div>
+      <div class="fgroup full">
+        <label>Discussion Points / Objectives / Notes</label>
+        <textarea id="qnotes" placeholder="Agenda items, preparation needed, key objectives…"></textarea>
+      </div>
+      <div class="fgroup full">
+        <label>Follow-up Action (optional)</label>
+        <input type="text" id="qaction" placeholder="e.g. Send proposal by 5 May">
+      </div>
+      <div class="fgroup full">
+        <label>Tags (comma separated)</label>
+        <input type="text" id="qtags" placeholder="e.g. Priority, Legal, Sourcing">
+      </div>
+      <div class="cal-hint">
+        💡 After saving, tap "Google Cal" or "iOS Cal" in the top bar to download and sync all events to your calendar
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="fbtn primary" id="qsave-btn" onclick="quickSave()">Save Event</button>
+      <button class="fbtn ghost" onclick="clearForm()">Clear</button>
+      <button class="fbtn export" onclick="doExportExcel()">⬇ Export Excel</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- ═══════════ EDIT MODAL ═══════════ -->
+<div class="moverlay" id="moverlay" onclick="handleMOverlay(event)">
+  <div class="mdrawer">
+    <div class="mdhandle"></div>
+    <button class="mdclose" onclick="closeModal()">✕</button>
+    <div class="mdtitle" id="md-title">Edit Event</div>
+    <div class="mdsub" id="md-sub"></div>
+    <div class="fg" id="md-form"></div>
+    <div class="form-footer" style="margin-top:14px">
+      <button class="fbtn primary" id="md-save" onclick="saveModal()">Save Changes</button>
+      <button class="fbtn ghost" onclick="closeModal()">Cancel</button>
+      <button class="fbtn" style="color:#c62828;border:.5px solid rgba(198,40,40,.2);background:transparent;font-family:var(--body);font-size:12px;padding:10px 16px;border-radius:var(--r-sm);cursor:pointer" id="md-del" onclick="deleteFromModal()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+/* ═══════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════ */
+const GCAL_COLORS = {
+  'gcal-blue':'#1a73e8','gcal-green':'#0f9d58','gcal-red':'#d93025',
+  'gcal-yellow':'#f9ab00','gcal-purple':'#8430ce','gcal-teal':'#009688',
+  'gcal-pink':'#d81b60','gcal-sage':'#33b679','gcal-grape':'#7986cb',
+  'gcal-graphite':'#5f6368'
+};
+
+const CONTACTS = [
+  {id:1,name:'James Leung',role:'Managing Director',co:'Asia Pacific Partners Ltd',phase:'hk',bg:'#0B2740',tags:['Strategic','Priority']},
+  {id:2,name:'Michelle Chan',role:'VP, Business Development',co:'HK Trade & Industry Council',phase:'hk',bg:'#3A7CB5',tags:['Government','Partner']},
+  {id:3,name:'Raymond Ho',role:'Senior Legal Counsel',co:'Ho, Yuen & Associates',phase:'hk',bg:'#1a73e8',tags:['Legal','Priority']},
+  {id:4,name:'Sophia Tam',role:'Chief Executive Officer',co:'Pacific Distribution Ltd',phase:'hk',bg:'#8430ce',tags:['Executive','Priority']},
+  {id:5,name:'David Kwok',role:'Regional Director',co:'Greater China Holdings',phase:'hk',bg:'#0f9d58',tags:['Partner','Confirmed']},
+  {id:6,name:'Angela Fung',role:'Head of Compliance',co:'HKMA Liaison Office',phase:'hk',bg:'#7986cb',tags:['Regulatory','Government']},
+  {id:7,name:'Li Wei',role:'Delegation Coordinator',co:'Canton Fair Bureau',phase:'cf',bg:'#6B1E0F',tags:['Canton Fair','Admin']},
+  {id:8,name:'Victor Zhao',role:'Category Manager',co:'SinoStar Packaging Co.',phase:'cf',bg:'#9B3322',tags:['Supplier','Priority']},
+];
+
+let ACTIONS = [
+  {id:1,text:'Send pre-meeting intelligence brief to all delegates — HK Phase',owner:'IR Lead',due:'25 Apr 2026',done:false,phase:'hk'},
+  {id:2,text:'Confirm reservation at Amber Restaurant, Mandarin Oriental — Apr 27 dinner',owner:'EA',due:'25 Apr 2026',done:false,phase:'hk'},
+  {id:3,text:'Prepare red-lined JV term sheet for Raymond Ho review session',owner:'Legal',due:'27 Apr 2026',done:false,phase:'hk'},
+  {id:4,text:'Print 6 copies of executive pitch deck — Sophia Tam presentation Apr 29',owner:'EA',due:'28 Apr 2026',done:false,phase:'hk'},
+  {id:5,text:'Request latest Nielsen FMCG data from David Kwok ahead of Apr 29 briefing',owner:'IR Lead',due:'28 Apr 2026',done:false,phase:'hk'},
+  {id:6,text:'Collect all Canton Fair Phase 3 delegation badges — online registration',owner:'Admin',due:'30 Apr 2026',done:true,phase:'cf'},
+  {id:7,text:'Download exhibitor list for Zones A–E and pre-select priority booths',owner:'Sourcing',due:'30 Apr 2026',done:false,phase:'cf'},
+  {id:8,text:'Book Mandarin Oriental Guangzhou — 1–6 May rooms for full delegation',owner:'EA',due:'24 Apr 2026',done:true,phase:'cf'},
+  {id:9,text:'Prepare LOI drafts for top 5 supplier negotiation round — 5 May',owner:'Legal',due:'4 May 2026',done:false,phase:'cf'},
+  {id:10,text:'Create supplier scoring sheet for real-time fair evaluation',owner:'Sourcing',due:'30 Apr 2026',done:false,phase:'cf'},
+  {id:11,text:'Schedule full delegation debrief call for 7 May post-trip',owner:'IR Lead',due:'5 May 2026',done:false,phase:'hk'},
+];
+
+let HK_EVENTS = [
+  {id:101,date:'2026-04-27',time:'14:00',dur:'1h',title:'Welcome & Delegation Briefing',co:'Internal — All Delegates',venue:'Peninsula Hotel, Lobby Lounge, Tsim Sha Tsui',att:'All delegates, EA, IR Lead',color:'gcal-blue',status:'confirmed',notes:'Trip objectives overview, role assignments, logistics confirmation. Distribute briefing packs. Review HK phase agenda in full.',tags:['Internal','Logistics']},
+  {id:102,date:'2026-04-27',time:'16:30',dur:'1.5h',title:'Pre-dinner Drinks & Relationship Building',co:'James Leung — Asia Pacific Partners',venue:'Lobster Bar, Island Shangri-La, Admiralty',att:'James Leung, Lead Delegate, +2',color:'gcal-pink',status:'confirmed',notes:'Informal pre-dinner gathering. First face-to-face with James after Singapore visit. Keep conversation high-level — save deal points for morning session.',tags:['Social','Networking']},
+  {id:103,date:'2026-04-27',time:'19:00',dur:'2h',title:'Opening Delegation Dinner',co:'Asia Pacific Partners',venue:'Amber Restaurant, Mandarin Oriental, Central',att:'James Leung, Sophia Tam, Lead Delegate, CFO',color:'gcal-pink',status:'confirmed',notes:'Formal welcome dinner. Relationship tone-setter for entire HK phase. James is hosting. Topics: Q3 priorities, GBA market overview, timeline for partnership announcement.',tags:['Social','Priority','Executive']},
+  {id:104,date:'2026-04-28',time:'09:30',dur:'2h',title:'Strategic Partnership Review — Full Session',co:'Asia Pacific Partners Ltd',venue:'APP HQ, 30/F Two IFC, 8 Finance Street, Central',att:'James Leung, BD team (3), Lead Delegate, CFO',color:'gcal-purple',status:'confirmed',notes:'AGENDA: (1) Review current distribution metrics Q1–Q2 (2) Revised revenue share proposal (3) GBA expansion roadmap (4) Exclusive territory discussion. Bring signed NDA. Present 3-year financial model.',tags:['Strategic','Priority','Executive']},
+  {id:105,date:'2026-04-28',time:'12:30',dur:'1.5h',title:'Working Lunch — HK Trade & Industry Council',co:'HK Trade & Industry Council',venue:'China Club, 13/F Old Bank of China Building, Central',att:'Michelle Chan, 2 council representatives, Lead Delegate',color:'gcal-grape',status:'confirmed',notes:'Trade facilitation discussion. CEPA update — new provisions affecting our product category. Opportunity to flag regulatory concerns. Michelle is well-connected — strong relationship to maintain.',tags:['Government','Partner']},
+  {id:106,date:'2026-04-28',time:'15:30',dur:'1h',title:'Legal Review — JV Corporate Structure',co:'Ho, Yuen & Associates',venue:'Swire House, 12/F, 9 Connaught Road, Central',att:'Raymond Ho, Lead Delegate, CFO, in-house legal',color:'gcal-red',status:'confirmed',notes:'CRITICAL: IP ownership clause in Article 7 requires negotiation. Review indemnification provisions. Raymond flagged minority shareholder protection gap. Bring red-lined version. Target: agree principal terms today.',tags:['Legal','Priority']},
+  {id:107,date:'2026-04-28',time:'18:00',dur:'1h',title:'Evening Debrief — Internal Team',co:'Internal',venue:'Peninsula Hotel, Felix Bar, 28/F',att:'All delegates',color:'gcal-graphite',status:'confirmed',notes:'Day 2 review. Assign follow-ups from APP and legal sessions. Confirm Apr 29 executive presentation readiness.',tags:['Internal']},
+  {id:108,date:'2026-04-29',time:'10:00',dur:'2h',title:'Executive Boardroom Presentation — Pacific Distribution',co:'Pacific Distribution Ltd',venue:'Pacific Place Tower 1, 29/F, 88 Queensway, Admiralty',att:'Sophia Tam (CEO), operations director, 3 senior managers, Lead Delegate, CFO',color:'gcal-purple',status:'confirmed',notes:'FLAGSHIP MEETING. 45-min formal pitch followed by 45-min Q&A and 30-min bilateral discussion. Sophia is key decision-maker. Prioritise GBA last-mile capability and sustainability credentials. CEO of our side should open.',tags:['Executive','Pitch','Priority']},
+  {id:109,date:'2026-04-29',time:'13:00',dur:'1.5h',title:'Market Intelligence Briefing',co:'Greater China Holdings',venue:'Hyatt Regency Hong Kong, Tsim Sha Tsui — The Terrace',att:'David Kwok, research analyst, Lead Delegate',color:'gcal-green',status:'confirmed',notes:'David to present competitive landscape update. Requesting: Nielsen FMCG H1 data, e-commerce penetration rates, Cross-border trade regulatory outlook. Lunch included.',tags:['Research','Partner']},
+  {id:110,date:'2026-04-29',time:'19:30',dur:'2.5h',title:'Delegation Networking Dinner — SEVVA',co:'Group — All Partners & Delegates',venue:'SEVVA, 25/F Prince\'s Building, 10 Chater Road, Central',att:'All delegates + HK partners (est. 14 pax)',color:'gcal-pink',status:'pending',notes:'Key relationship evening. Rooftop venue with city views. All HK-side partners invited. Dress: smart casual. Pre-order required — EA to confirm dietary requirements by Apr 27 2026.',tags:['Networking','Social','Priority']},
+  {id:111,date:'2026-04-30',time:'09:00',dur:'1h',title:'Regulatory Compliance Briefing — HKMA Liaison',co:'HKMA Liaison Office',venue:'2 IFC, 55/F, Central (HKMA premises)',att:'Angela Fung (HKMA), Lead Delegate, Legal team',color:'gcal-grape',status:'confirmed',notes:'New cross-border payment regulations effective Q3 2026. Direct impact on our settlement structure. Angela will present draft guidance. Bring legal team — note-taking essential. Do not commit to any position without legal review.',tags:['Regulatory','Government','Priority']},
+  {id:112,date:'2026-04-30',time:'11:30',dur:'1.5h',title:'Distribution Strategy — Operational Deep Dive',co:'Pacific Distribution Ltd',venue:'Pacific Place Tower 1, 29/F',att:'Sophia Tam, logistics director, warehouse lead, CFO',color:'gcal-green',status:'confirmed',notes:'Follow-up to boardroom presentation. Focus: warehouse locations (3 options to evaluate), last-mile delivery partners, GBA distribution tiering, SKU prioritisation.',tags:['Operations','Strategic']},
+  {id:113,date:'2026-04-30',time:'15:00',dur:'1.5h',title:'Deal Closing — Principal Terms Agreement',co:'Asia Pacific Partners Ltd',venue:'APP HQ, 30/F Two IFC, Central',att:'James Leung, Lead Delegate, CFO, Legal',color:'gcal-red',status:'pending',notes:'TARGET: Sign Heads of Agreement today. James has been briefed. Bring final red-lined HA with lawyer present. Fallback: agree all terms, sign within 5 business days. Do not leave without a clear commitment.',tags:['Deal','Priority','Executive']},
+  {id:114,date:'2026-05-01',time:'09:00',dur:'1h',title:'HK Phase Wrap-Up & Action Review',co:'Internal',venue:'Peninsula Hotel, Garden Terrace',att:'All delegates',color:'gcal-blue',status:'confirmed',notes:'Final HK debrief. Review all open items. Assign owners and deadlines. Transition briefing to Canton Fair phase. Delegates checking out by 12:00 for Guangzhou transit.',tags:['Internal','Logistics']},
+];
+
+let CF_EVENTS = [
+  {id:201,date:'2026-05-01',time:'14:00',dur:'1h',title:'Canton Fair Arrival & Badge Registration',co:'Canton Fair Administration',venue:'China Import & Export Fair Complex — Main Entrance, Pazhou, Guangzhou',att:'All delegates',color:'gcal-graphite',status:'confirmed',notes:'Pick up pre-registered badges at Counter 7. Collect official fair map and exhibitor guide. Confirm delegation meeting point for Day 1 (Hall A entrance, 08:45).',tags:['Admin','Travel']},
+  {id:202,date:'2026-05-01',time:'15:30',dur:'1.5h',title:'Fair Orientation & Strategy Briefing',co:'Internal',venue:'Mandarin Oriental Guangzhou, Meeting Room 3',att:'All delegates, Sourcing Lead',color:'gcal-blue',status:'confirmed',notes:'Zone allocation by delegate. Pre-assigned booths reviewed. Scoring sheet distributed. Reminder: photograph booth number + product + business card. WhatsApp group for real-time sharing.',tags:['Internal','Strategy']},
+  {id:203,date:'2026-05-02',time:'09:00',dur:'7h',title:'Zone A — Office, Stationery & Tech Accessories',co:'Multiple Exhibitors — Zone A',venue:'Halls 1.1, 1.2, 1.3 — China Import & Export Fair Complex',att:'Sourcing team (3), Lead Delegate',color:'gcal-teal',status:'confirmed',notes:'Priority targets: sustainable packaging, premium stationery brands, wireless peripherals, eco-certified products. Must check: MOQ, lead time, certifications, OEM capability. Target: shortlist 5 from this zone.',tags:['Sourcing','Zone A']},
+  {id:204,date:'2026-05-02',time:'15:30',dur:'1.5h',title:'Pre-arranged Meeting — SinoStar Packaging Co.',co:'SinoStar Packaging Co. Ltd',venue:'Hall 1.2, Booth B-234',att:'Victor Zhao (Category Mgr), Lead Delegate, Sourcing Lead',color:'gcal-sage',status:'confirmed',notes:'PRIORITY SUPPLIER. Pre-arranged by Li Wei. Product range: sustainable corrugated, FSC-certified boxes, custom print. Request: pricing sheet, MOQ breakdown, sample catalogue, sustainability certifications. Ask about exclusivity.',tags:['Priority','Sourcing','Pre-arranged']},
+  {id:205,date:'2026-05-03',time:'09:00',dur:'7h',title:'Zone B — Medical, Health & Wellness',co:'Multiple Exhibitors — Zone B',venue:'Halls 2.1, 2.2, 2.3, 2.4 — China Import & Export Fair Complex',att:'Sourcing team, Lead Delegate',color:'gcal-teal',status:'confirmed',notes:'Focus: diagnostic devices, wellness equipment, PPE, rehabilitation products. MANDATORY: verify CE marking, FDA clearance, or equivalent for each product. Do not engage suppliers without documentation. Priority sub-category: home wellness devices.',tags:['Sourcing','Medical','Zone B']},
+  {id:206,date:'2026-05-03',time:'14:00',dur:'1.5h',title:'Mid-mission Category Review',co:'Internal Sourcing Team',venue:'Fair Complex Business Lounge, Level 3',att:'All delegates',color:'gcal-blue',status:'confirmed',notes:'Day 2 review: scorecard update, hit/miss by zone, supplier red flags. Adjust Day 3–4 focus based on findings. Update shared scoring tracker. Sourcing Lead to present top 10 candidates so far.',tags:['Internal','Review']},
+  {id:207,date:'2026-05-04',time:'09:00',dur:'7h',title:'Zone C — Food, Beverages & Organic Products',co:'Multiple Exhibitors — Zone C',venue:'Halls 3.1, 3.2, 3.3, 3.4, 3.5 — China Import & Export Fair Complex',att:'Sourcing team, Lead Delegate',color:'gcal-teal',status:'confirmed',notes:'Priority: certified organic snacks, functional beverages, ambient food ranges, specialty teas. Check: food safety certifications, shelf life, cold chain requirements, import permit status. Target: 3 suppliers for F&B category.',tags:['Sourcing','Food & Bev','Zone C']},
+  {id:208,date:'2026-05-04',time:'15:30',dur:'1h',title:'Pre-arranged Meeting — GoldBridge Foods Ltd',co:'GoldBridge Foods Ltd',venue:'Hall 3.3, Booth C-118',att:'Lead Delegate, CFO, Sourcing Lead',color:'gcal-sage',status:'confirmed',notes:'RETURNING SUPPLIER — dealt with at Phase 2. Strong track record on quality and lead times. New product range: organic rice cakes, plant-based snacks, premium tea blends. Discuss exclusive regional rights for SEA. Prepare offer sheet.',tags:['Priority','F&B','Returning Supplier']},
+  {id:209,date:'2026-05-05',time:'09:00',dur:'7h',title:'Zone D — Gifts, Premiums & Home Décor',co:'Multiple Exhibitors — Zone D',venue:'Halls 4.1, 4.2, 4.3 — China Import & Export Fair Complex',att:'Sourcing team',color:'gcal-teal',status:'confirmed',notes:'Gifting sets, lifestyle products, branded merchandise, home fragrance, décor. Note key trend directions for retail season. Focus on premium positioning — avoid commodity-tier products.',tags:['Sourcing','Gifts','Zone D']},
+  {id:210,date:'2026-05-05',time:'16:00',dur:'1.5h',title:'Supplier Shortlist Negotiation — Priority Round',co:'Top 5 Shortlisted Suppliers (TBC)',venue:'Business Lounge, Level 3, Fair Complex',att:'Lead Delegate, CFO, Legal, Sourcing Lead',color:'gcal-purple',status:'pending',notes:'Invitation-only negotiation round with top 5 from scoring sheet. Target: agree indicative pricing, MOQ, and sampling terms. Bring LOI drafts. Do not disclose competitor quotes.',tags:['Priority','Negotiation','Executive']},
+  {id:211,date:'2026-05-06',time:'09:00',dur:'3h',title:'Final Hall Pass — Zone E & Remaining',co:'Multiple Exhibitors',venue:'Zone E, Halls 5.1–5.3 & overflow halls',att:'Sourcing team',color:'gcal-teal',status:'confirmed',notes:'Shoes, accessories, sports & leisure. Final pass for any missed exhibitors. Collect remaining catalogues and samples. Final photography of top booths.',tags:['Sourcing','Zone E','Sports']},
+  {id:212,date:'2026-05-06',time:'13:00',dur:'2.5h',title:'Full Delegation Debrief & Supplier Scoring',co:'Internal',venue:'Mandarin Oriental Guangzhou, Boardroom Suite',att:'All delegates',color:'gcal-blue',status:'confirmed',notes:'Final scoring session. Present shortlist to CFO. Agree top 3 for immediate follow-up and top 5 for LOI. Assign ownership of each follow-up. Depart for airport after session.',tags:['Internal','Priority','Decision']},
+];
+
+const CF_HALLS = [
+  {z:'A',cat:'Office, Stationery & Tech Accessories',halls:'Halls 1.1–1.3',targets:['Sustainable packaging','Premium stationery','Wireless tech accessories','Eco-certified products','Custom print / OEM'],color:'gcal-blue'},
+  {z:'B',cat:'Medical, Health & Wellness',halls:'Halls 2.1–2.4',targets:['Home diagnostic devices','Wellness & rehabilitation','PPE & protective gear','CE / FDA certified only','Sports health tech'],color:'gcal-red'},
+  {z:'C',cat:'Food, Beverages & Organics',halls:'Halls 3.1–3.5',targets:['Certified organic snacks','Functional beverages','Premium specialty teas','Ambient & shelf-stable','Plant-based products'],color:'gcal-sage'},
+  {z:'D',cat:'Gifts, Premiums & Home Décor',halls:'Halls 4.1–4.3',targets:['Corporate gifting sets','Branded premium lifestyle','Home fragrance & décor','Custom logo merchandise','Seasonal collections'],color:'gcal-pink'},
+  {z:'E',cat:'Shoes, Accessories & Sports Leisure',halls:'Halls 5.1–5.3',targets:['Athletic footwear','Sports accessories','Leisure & outdoor gear','OEM / private label','Trend-forward styles'],color:'gcal-teal'},
+];
+
+const LOGISTICS = {
+  flights: [
+    {id:501,ico:'✈️',type:'fl',title:'CX 104 — Singapore (SIN) → Hong Kong (HKG)',detail:'27 Apr 2026 · Departs 07:40 · Arrives 11:25 · Cathay Pacific · Business Class · Row 5A–5D',stat:'conf'},
+    {id:502,ico:'✈️',type:'fl',title:'KTT Ferry / Express Rail — Hong Kong → Guangzhou South',detail:'1 May 2026 · HKG-GMH Express · Departs 13:45 · Arrives 15:10 · First Class · West Kowloon Station',stat:'conf'},
+    {id:503,ico:'✈️',type:'fl',title:'CZ 352 — Guangzhou (CAN) → Singapore (SIN)',detail:'6 May 2026 · Departs 19:30 · Arrives 22:45 · China Southern · Business Class · Guangzhou Baiyun T2',stat:'pend'},
+  ],
+  hotels: [
+    {id:504,ico:'🏨',type:'ht',title:'The Peninsula Hong Kong',detail:'27 Apr – 1 May 2026 · Superior Harbour View Room · 4 rooms confirmed · Confirmation: PEN-2026-4471-SG · Tsim Sha Tsui',stat:'conf'},
+    {id:505,ico:'🏨',type:'ht',title:'Mandarin Oriental Guangzhou',detail:'1 May – 6 May 2026 · Deluxe Rooms · 4 rooms · Walking distance to Canton Fair Complex · Confirmation: MOGZ-SG-25051',stat:'pend'},
+  ],
+  ground: [
+    {id:506,ico:'🚗',type:'tr',title:'Airport Transfer — HKG Arrivals to Peninsula Hotel',detail:'27 Apr 2026 · Pickup at Arrivals Hall A · Peninsula limousine pre-booked · Driver: +852 9123 4567',stat:'conf'},
+    {id:507,ico:'🚗',type:'tr',title:'Daily Executive Car — Hong Kong Phase',detail:'28–30 Apr 2026 · Full-day hire · Mercedes E-Class × 2 · Driver contact: Mr. Chan +852 6789 0123',stat:'conf'},
+    {id:508,ico:'🚗',type:'tr',title:'Guangzhou Airport Transfer — Hotel to CAN Airport',detail:'6 May 2026 · Departs hotel 16:30 · Mandarin Oriental to Baiyun Airport T2 · Allow 90 min',stat:'pend'},
+  ],
+};
+
+let nextId = 400;
+let modalPhase = 'hk';
+let modalEditId = null;
+
+/* ═══════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════ */
+function switchView(id, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.htab').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+function goView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.htab').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  const idx = ['overview','hk','cf','logistics','actions'].indexOf(id);
+  const tabs = document.querySelectorAll('.htab');
+  if (tabs[idx]) tabs[idx].classList.add('active');
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER HELPERS
+═══════════════════════════════════════════════ */
+function fmtDate(d) {
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+}
+function fmtDay(d) {
+  const dt = new Date(d + 'T00:00:00');
+  return { n: dt.getDate(), mo: dt.toLocaleDateString('en-GB',{month:'short'}), dow: dt.toLocaleDateString('en-GB',{weekday:'short'}) };
+}
+
+function tagHTML(tags) {
+  const map = {
+    'Priority':'prio','Strategic':'gen','Internal':'gen','Legal':'gen',
+    'Social':'net','Networking':'net','Executive':'exec','Government':'gov',
+    'Regulatory':'gov','Confirmed':'conf','Pending':'pend','Tentative':'tent',
+    'Sourcing':'src','Pre-arranged':'src','F&B':'src','Medical':'src',
+    'Travel':'trav','Logistics':'trav','Deal':'prio','Pitch':'gen',
+    'Partner':'gen','Research':'gen','Review':'gen','Admin':'gen',
+    'Operations':'gen','Strategy':'gen','Decision':'prio',
+  };
+  return tags.map(t => {
+    const cls = map[t] || 'gen';
+    return `<span class="tag ${cls}">${t}</span>`;
+  }).join('');
+}
+
+function statusTag(s) {
+  const m = { confirmed:'conf', pending:'pend', tentative:'tent' };
+  const l = { confirmed:'Confirmed', pending:'Pending', tentative:'Tentative' };
+  return `<span class="tag ${m[s]||'gen'}">${l[s]||s}</span>`;
+}
+
+function renderAgenda(events, containerId, phase) {
+  const dates = [...new Set(events.map(e => e.date))].sort();
+  let html = '';
+  dates.forEach(date => {
+    const dayEvs = events.filter(e => e.date === date).sort((a,b) => a.time.localeCompare(b.time));
+    const d = fmtDay(date);
+    html += `<div class="day-block">
+      <div class="day-head">
+        <div class="day-chip ${phase}">
+          <div class="day-chip-n">${d.n}</div>
+          <div class="day-chip-m">${d.mo}</div>
+        </div>
+        <div class="day-head-info">
+          <h3>${fmtDate(date)}</h3>
+          <p>${dayEvs.length} event${dayEvs.length!==1?'s':''} · ${phase==='hk'?'Hong Kong':'Canton Fair, Guangzhou'}</p>
+        </div>
+        <span class="day-badge ${phase}">${phase==='hk'?'HK':'Canton Fair'}</span>
+      </div>
+      <div class="ev-list">`;
+    dayEvs.forEach(ev => {
+      const col = GCAL_COLORS[ev.color] || '#1a73e8';
+      const editCls = phase === 'cf' ? 'cf-edit' : 'hk-edit';
+      html += `<div class="ev" style="--ev-color:${col}" onclick="openEdit(${ev.id},'${phase}')">
+        <div class="ev-time">
+          <div class="ev-t">${ev.time}</div>
+          <div class="ev-d">${ev.dur}</div>
+          <div class="ev-dot" style="background:${col}"></div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-title">${ev.title}</div>
+          <div class="ev-company">${ev.co}</div>
+          <div class="ev-loc">📍 ${ev.venue}</div>
+          <div class="ev-tags">${statusTag(ev.status)}${tagHTML(ev.tags)}</div>
+          ${ev.notes ? `<div class="ev-notes">${ev.notes}</div>` : ''}
+          ${ev.att ? `<div class="ev-attendees">👥 ${ev.att}</div>` : ''}
+        </div>
+        <div class="ev-acts">
+          <button class="ebtn ${editCls}" onclick="event.stopPropagation();openEdit(${ev.id},'${phase}')">Edit</button>
+          <button class="ebtn del" onclick="event.stopPropagation();delEv(${ev.id},'${phase}')">✕</button>
+        </div>
+      </div>`;
+    });
+    html += '</div></div>';
+  });
+  if (!html) html = '<div class="empty">No events. Tap "+ Add Meeting" to create one.</div>';
+  document.getElementById(containerId).innerHTML = html;
+}
+
+function renderCFHalls() {
+  let html = '';
+  CF_HALLS.forEach(h => {
+    const col = GCAL_COLORS[h.color] || '#009688';
+    html += `<div class="hall-card">
+      <div class="hall-num" style="background:${col}">${h.z}</div>
+      <div class="hall-body">
+        <h4>${h.cat}</h4>
+        <p>${h.halls}</p>
+        <div class="hall-tags">${h.targets.map(t=>`<span class="tag src">${t}</span>`).join('')}</div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('cf-halls').innerHTML = html;
+}
+
+function renderContacts() {
+  const colors = ['#0B2740','#6B1E0F','#1a73e8','#8430ce','#0f9d58','#009688','#7986cb','#d81b60'];
+  let html = CONTACTS.map((c, i) => {
+    const initials = c.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    return `<div class="ccard">
+      <div class="cav" style="background:${colors[i%colors.length]}">${initials}</div>
+      <div class="cinfo">
+        <div class="cname">${c.name}</div>
+        <div class="crole">${c.role}</div>
+        <div class="cco">${c.co}</div>
+        <div class="ctags">${tagHTML(c.tags)}<span class="aphase ${c.phase}">${c.phase==='hk'?'HK':'CF'}</span></div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('ov-contacts').innerHTML = html || '<div class="empty">No contacts.</div>';
+}
+
+function renderActions() {
+  const renderList = (items, el) => {
+    if (!el) return;
+    el.innerHTML = items.length ? items.map(a => `
+      <div class="aitem">
+        <div class="acheck ${a.done?'done':''}" onclick="toggleAction(${a.id})">${a.done?'✓':''}</div>
+        <div class="atext ${a.done?'done':''}">${a.text}</div>
+        <div class="ameta">
+          <span class="aphase ${a.phase}">${a.phase==='hk'?'HK':'CF'}</span>
+          <span class="aowner">${a.owner}</span>
+          <span class="adue">${a.due}</span>
+        </div>
+      </div>`).join('') : '<div class="empty">All clear — no open actions.</div>';
+  };
+  renderList(ACTIONS.filter(a=>!a.done), document.getElementById('ov-actions'));
+  renderList(ACTIONS, document.getElementById('all-actions'));
+}
+
+let logModalId = null;
+let logModalType = 'fl';
+
+const LOG_TYPE_LABELS = { fl:'Flight / Transport', ht:'Hotel / Accommodation', tr:'Ground Transfer' };
+const LOG_TYPE_ICONS  = { fl:'✈️', ht:'🏨', tr:'🚗' };
+
+function getAllLogItems() {
+  return [
+    ...LOGISTICS.flights,
+    ...LOGISTICS.hotels,
+    ...LOGISTICS.ground,
+  ];
+}
+
+function findLogItem(id) {
+  for (const arr of [LOGISTICS.flights, LOGISTICS.hotels, LOGISTICS.ground]) {
+    const item = arr.find(l => l.id === id);
+    if (item) return item;
+  }
+  return null;
+}
+
+function deleteLogItem(id) {
+  if (!confirm('Delete this entry? This cannot be undone.')) return;
+  LOGISTICS.flights = LOGISTICS.flights.filter(l => l.id !== id);
+  LOGISTICS.hotels  = LOGISTICS.hotels.filter(l => l.id !== id);
+  LOGISTICS.ground  = LOGISTICS.ground.filter(l => l.id !== id);
+  renderLogistics();
+  showToast('Entry deleted', 'hk');
+}
+
+function openLogAdd(type) {
+  logModalId   = null;
+  logModalType = type;
+  document.getElementById('lmd-title').textContent = 'Add ' + LOG_TYPE_LABELS[type];
+  document.getElementById('lmd-sub').textContent   = 'Fill in the details below';
+  document.getElementById('lmd-del').style.display = 'none';
+  document.getElementById('lmd-save').textContent  = 'Add Entry';
+  buildLogForm(null, type);
+  document.getElementById('log-moverlay').classList.add('open');
+}
+
+function openLogEdit(id) {
+  const item = findLogItem(id);
+  if (!item) return;
+  logModalId   = id;
+  logModalType = item.type;
+  document.getElementById('lmd-title').textContent = 'Edit Entry';
+  document.getElementById('lmd-sub').textContent   = item.title;
+  document.getElementById('lmd-del').style.display = 'block';
+  document.getElementById('lmd-save').textContent  = 'Save Changes';
+  buildLogForm(item, item.type);
+  document.getElementById('log-moverlay').classList.add('open');
+}
+
+function buildLogForm(item, type) {
+  const e = item || {};
+  const typeOpts = [
+    ['fl','✈️ Flight / Transport'],
+    ['ht','🏨 Hotel / Accommodation'],
+    ['tr','🚗 Ground Transfer / Car'],
+  ].map(([v,l]) => `<option value="${v}" ${(e.type||type)===v?'selected':''}>${l}</option>`).join('');
+  const statOpts = [
+    ['conf','Confirmed'],['pend','Pending'],['tent','Tentative'],
+  ].map(([v,l]) => `<option value="${v}" ${(e.stat||'pend')===v?'selected':''}>${l}</option>`).join('');
+
+  document.getElementById('lmd-form').innerHTML = `
+    <div class="fgroup">
+      <label>Type</label>
+      <select id="lf-type" onchange="logModalType=this.value">${typeOpts}</select>
+    </div>
+    <div class="fgroup">
+      <label>Status</label>
+      <select id="lf-stat">${statOpts}</select>
+    </div>
+    <div class="fgroup full">
+      <label>Title / Flight Number / Property Name</label>
+      <input type="text" id="lf-title" value="${e.title||''}" placeholder="e.g. CX 104 — SIN → HKG  or  The Peninsula Hong Kong">
+    </div>
+    <div class="fgroup full">
+      <label>Details (dates, times, confirmation number, notes)</label>
+      <textarea id="lf-detail" placeholder="e.g. 27 Apr 2026 · Departs 07:40 · Business Class · Confirmation: ABC123">${e.detail||''}</textarea>
+    </div>
+  `;
+}
+
+function saveLogModal() {
+  const type   = document.getElementById('lf-type').value;
+  const title  = document.getElementById('lf-title').value.trim();
+  const detail = document.getElementById('lf-detail').value.trim();
+  const stat   = document.getElementById('lf-stat').value;
+  if (!title) { showToast('Please enter a title', 'hk'); return; }
+
+  const arrMap = { fl: LOGISTICS.flights, ht: LOGISTICS.hotels, tr: LOGISTICS.ground };
+
+  if (logModalId) {
+    // Edit — find and update across all arrays
+    for (const arr of [LOGISTICS.flights, LOGISTICS.hotels, LOGISTICS.ground]) {
+      const idx = arr.findIndex(l => l.id === logModalId);
+      if (idx >= 0) {
+        // Remove from old array if type changed
+        arr.splice(idx, 1);
+        break;
+      }
+    }
+    arrMap[type].push({ id: logModalId, ico: LOG_TYPE_ICONS[type], type, title, detail, stat });
+  } else {
+    const newId = nextId++;
+    arrMap[type].push({ id: newId, ico: LOG_TYPE_ICONS[type], type, title, detail, stat });
+  }
+
+  renderLogistics();
+  closeLogModal();
+  showToast(logModalId ? 'Entry updated' : 'Entry added', 'hk');
+  document.getElementById('ts').textContent = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+}
+
+function closeLogModal() {
+  document.getElementById('log-moverlay').classList.remove('open');
+  logModalId = null;
+}
+
+function renderLogistics() {
+  const mkCard = (items, el) => {
+    if (!el) return;
+    if (!items.length) {
+      el.innerHTML = '<div class="empty">No entries yet. Use + Add to create one.</div>';
+      return;
+    }
+    el.innerHTML = items.map(l => {
+      const typeLabel = { fl:'Flight', ht:'Hotel', tr:'Transfer' }[l.type] || '';
+      return `
+      <div class="log-card" onclick="openLogEdit(${l.id})">
+        <div class="log-ico ${l.type}">${l.ico}</div>
+        <div class="log-body">
+          <h4>${l.title}</h4>
+          <p>${l.detail}</p>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;margin-left:8px">
+          <span class="log-stat ${l.stat}">${l.stat==='conf'?'Confirmed':l.stat==='tent'?'Tentative':'Pending'}</span>
+          <span class="log-type-badge ${l.type}">${typeLabel}</span>
+          <div style="display:flex;gap:4px;margin-top:2px">
+            <button class="log-ebtn edit" onclick="event.stopPropagation();openLogEdit(${l.id})">Edit</button>
+            <button class="log-ebtn del"  onclick="event.stopPropagation();deleteLogItem(${l.id})">✕</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  };
+  mkCard(LOGISTICS.flights, document.getElementById('log-flights'));
+  mkCard(LOGISTICS.hotels,  document.getElementById('log-hotels'));
+  mkCard(LOGISTICS.ground,  document.getElementById('log-ground'));
+}
+
+function updateKPIs() {
+  const hkM = HK_EVENTS.length, cfM = CF_EVENTS.length;
+  const conf = [...HK_EVENTS,...CF_EVENTS].filter(e=>e.status==='confirmed').length;
+  const openAct = ACTIONS.filter(a=>!a.done).length;
+  const hkC = HK_EVENTS.filter(e=>e.status==='confirmed').length;
+  const hkP = HK_EVENTS.filter(e=>e.status!=='confirmed').length;
+  const cfC = CF_EVENTS.filter(e=>e.status==='confirmed').length;
+
+  const set = (id, v) => { const el=document.getElementById(id); if(el)el.textContent=v; };
+  set('ov-hk-m', hkM); set('ov-hk-c', hkC); set('ov-hk-p', hkP);
+  set('ov-cf-m', cfM);
+  set('kpi-hk', hkM); set('kpi-cf', cfM);
+  set('kpi-conf', conf); set('kpi-open', openAct);
+}
+
+function renderAll() {
+  renderAgenda(HK_EVENTS, 'hk-agenda', 'hk');
+  renderAgenda(CF_EVENTS, 'cf-agenda', 'cf');
+  renderCFHalls();
+  renderContacts();
+  renderActions();
+  renderLogistics();
+  updateKPIs();
+}
+
+/* ═══════════════════════════════════════════════
+   MODAL — EDIT / ADD
+═══════════════════════════════════════════════ */
+const COL_OPTS = [
+  ['gcal-blue','🔵 Partner Meeting'],['gcal-green','🟢 Confirmed'],
+  ['gcal-red','🔴 Priority / Urgent'],['gcal-yellow','🟡 Pending / TBC'],
+  ['gcal-purple','🟣 Executive Only'],['gcal-teal','🩵 Canton Fair Hall'],
+  ['gcal-pink','🩷 Networking / Social'],['gcal-sage','🟩 Pre-arranged'],
+  ['gcal-grape','🪻 Government / Regulatory'],['gcal-graphite','⚫ Travel'],
+];
+
+function buildModalForm(ev) {
+  const e = ev || {};
+  const colOpts = COL_OPTS.map(([v,l]) => `<option value="${v}" ${e.color===v?'selected':''}>${l}</option>`).join('');
+  return `
+    <div class="fgroup"><label>Date</label><input type="date" id="mf-date" value="${e.date||''}" min="2026-04-27" max="2026-05-06"></div>
+    <div class="fgroup"><label>Time</label><input type="time" id="mf-time" value="${e.time||''}"></div>
+    <div class="fgroup"><label>Duration</label><input type="text" id="mf-dur" value="${e.dur||''}" placeholder="e.g. 1h 30m"></div>
+    <div class="fgroup"><label>Calendar Color</label><select id="mf-col">${colOpts}</select></div>
+    <div class="fgroup"><label>Status</label>
+      <select id="mf-stat">
+        <option value="confirmed" ${e.status==='confirmed'?'selected':''}>Confirmed</option>
+        <option value="pending" ${e.status==='pending'?'selected':''}>Pending</option>
+        <option value="tentative" ${e.status==='tentative'?'selected':''}>Tentative</option>
+      </select>
+    </div>
+    <div class="fgroup"><label>Tags (comma sep.)</label><input type="text" id="mf-tags" value="${(e.tags||[]).join(', ')}"></div>
+    <div class="fgroup full"><label>Title</label><input type="text" id="mf-title" value="${e.title||''}" placeholder="Meeting or event title"></div>
+    <div class="fgroup full"><label>Company / Exhibitor</label><input type="text" id="mf-co" value="${e.co||''}"></div>
+    <div class="fgroup full"><label>Venue / Location / Hall</label><input type="text" id="mf-venue" value="${e.venue||''}"></div>
+    <div class="fgroup full"><label>Attendees</label><input type="text" id="mf-att" value="${e.att||''}"></div>
+    <div class="fgroup full"><label>Notes / Discussion Points</label><textarea id="mf-notes">${e.notes||''}</textarea></div>
+  `;
+}
+
+function openAdd(phase) {
+  modalPhase = phase; modalEditId = null;
+  document.getElementById('md-title').textContent = phase==='hk' ? 'Add HK Meeting' : 'Add Canton Fair Event';
+  document.getElementById('md-sub').textContent = 'Fill in details — event will appear in the agenda immediately';
+  document.getElementById('md-save').className = 'fbtn primary' + (phase==='cf'?' cf':'');
+  document.getElementById('md-del').style.display = 'none';
+  document.getElementById('md-form').innerHTML = buildModalForm(null);
+  document.getElementById('moverlay').classList.add('open');
+}
+
+function openEdit(id, phase) {
+  modalPhase = phase; modalEditId = id;
+  const events = phase === 'hk' ? HK_EVENTS : CF_EVENTS;
+  const ev = events.find(e => e.id === id);
+  if (!ev) return;
+  document.getElementById('md-title').textContent = 'Edit Event';
+  document.getElementById('md-sub').textContent = ev.title;
+  document.getElementById('md-save').className = 'fbtn primary' + (phase==='cf'?' cf':'');
+  document.getElementById('md-del').style.display = 'block';
+  document.getElementById('md-form').innerHTML = buildModalForm(ev);
+  document.getElementById('moverlay').classList.add('open');
+}
+
+function saveModal() {
+  const g = id => document.getElementById(id);
+  const ev = {
+    id: modalEditId || nextId++,
+    date: g('mf-date').value,
+    time: g('mf-time').value,
+    dur: g('mf-dur').value,
+    color: g('mf-col').value,
+    status: g('mf-stat').value,
+    tags: g('mf-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    title: g('mf-title').value,
+    co: g('mf-co').value,
+    venue: g('mf-venue').value,
+    att: g('mf-att').value,
+    notes: g('mf-notes').value,
+  };
+  if (!ev.title) { showToast('Please enter a title', 'hk'); return; }
+  const arr = modalPhase === 'hk' ? HK_EVENTS : CF_EVENTS;
+  if (modalEditId) {
+    const i = arr.findIndex(e => e.id === modalEditId);
+    if (i >= 0) arr[i] = ev;
+  } else arr.push(ev);
+  if (modalPhase === 'hk') HK_EVENTS = [...arr];
+  else CF_EVENTS = [...arr];
+  renderAll();
+  closeModal();
+  showToast(modalEditId ? 'Event updated' : 'Event added to ' + (modalPhase==='hk'?'HK':'Canton Fair') + ' agenda', modalPhase);
+  document.getElementById('ts').textContent = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+}
+
+function deleteFromModal() {
+  if (!modalEditId) return;
+  if (!confirm('Delete this event? This cannot be undone.')) return;
+  delEv(modalEditId, modalPhase);
+  closeModal();
+}
+
+function delEv(id, phase) {
+  if (phase === 'hk') HK_EVENTS = HK_EVENTS.filter(e => e.id !== id);
+  else CF_EVENTS = CF_EVENTS.filter(e => e.id !== id);
+  renderAll();
+  showToast('Event deleted', 'hk');
+}
+
+function closeModal() { document.getElementById('moverlay').classList.remove('open'); }
+function handleMOverlay(e) { if (e.target === document.getElementById('moverlay')) closeModal(); }
+
+/* ═══════════════════════════════════════════════
+   QUICK ADD FORM
+═══════════════════════════════════════════════ */
+function quickSave() {
+  const g = id => document.getElementById(id);
+  const phase = g('qp').value;
+  const title = g('qtitle').value.trim();
+  if (!title) { showToast('Please enter a title', 'hk'); return; }
+  const ev = {
+    id: nextId++,
+    date: g('qdate').value || '2026-04-28',
+    time: g('qtime').value || '09:00',
+    dur: g('qdur').value || '1h',
+    color: g('qcol').value,
+    status: g('qstat').value,
+    title,
+    co: g('qco').value || 'TBC',
+    venue: g('qvenue').value || 'TBC',
+    att: g('qatt').value,
+    notes: g('qnotes').value,
+    tags: g('qtags').value.split(',').map(t=>t.trim()).filter(Boolean),
+  };
+  const action = g('qaction').value.trim();
+  if (action) {
+    ACTIONS.push({id:Date.now(),text:action,owner:'Delegate',due:'TBD',done:false,phase});
+  }
+  if (phase === 'hk') HK_EVENTS.push(ev);
+  else CF_EVENTS.push(ev);
+  renderAll(); clearForm();
+  goView(phase);
+  showToast('Event saved — view in ' + (phase==='hk'?'Hong Kong':'Canton Fair') + ' tab', phase);
+  document.getElementById('ts').textContent = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+}
+
+function clearForm() {
+  ['qdate','qtime','qdur','qtitle','qco','qvenue','qatt','qnotes','qaction','qtags'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
+}
+
+/* ═══════════════════════════════════════════════
+   ACTIONS
+═══════════════════════════════════════════════ */
+function toggleAction(id) {
+  const a = ACTIONS.find(x => x.id === id);
+  if (a) { a.done = !a.done; renderActions(); updateKPIs(); }
+}
+function promptAddAction() {
+  const text = prompt('Action item description:');
+  if (!text) return;
+  const owner = prompt('Owner (name or role):', 'Delegate') || 'Delegate';
+  const due = prompt('Due date:', 'TBD') || 'TBD';
+  const phase = confirm('Hong Kong phase? (Cancel = Canton Fair)') ? 'hk' : 'cf';
+  ACTIONS.push({id:Date.now(),text,owner,due,done:false,phase});
+  renderActions(); updateKPIs();
+  showToast('Action added', phase);
+}
+
+/* ═══════════════════════════════════════════════
+   CALENDAR EXPORT — ICS
+═══════════════════════════════════════════════ */
+function exportICS(type) {
+  const allEvs = [...HK_EVENTS, ...CF_EVENTS];
+  const esc = s => String(s||'').replace(/\n/g,'\\n').replace(/,/g,'\\,');
+  const fmtDT = (date, time) => date.replace(/-/g,'') + 'T' + (time||'09:00').replace(':','') + '00';
+  let ics = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Executive Trip Book 2026//EN\nCALSCALE:GREGORIAN\nX-WR-CALNAME:HK & Canton Fair 2026\nX-WR-TIMEZONE:Asia/Hong_Kong\n';
+  allEvs.forEach(ev => {
+    ics += `BEGIN:VEVENT\nUID:${ev.id}-2026@tripbook\nDTSTAMP:${fmtDT(ev.date,ev.time)}\nDTSTART;TZID=Asia/Hong_Kong:${fmtDT(ev.date,ev.time)}\nSUMMARY:${esc(ev.title)}\nDESCRIPTION:${esc(ev.notes + ' | Attendees: ' + ev.att)}\nLOCATION:${esc(ev.venue)}\nEND:VEVENT\n`;
+  });
+  ics += 'END:VCALENDAR';
+  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'ExecutiveTripBook_HK_CantonFair_2026.ics';
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 500);
+  showToast(type==='google' ? 'Download .ics → Import into Google Calendar' : 'Tap to add to iOS Calendar', 'ok');
+}
+
+/* ═══════════════════════════════════════════════
+   EXCEL EXPORT
+═══════════════════════════════════════════════ */
+function doExportExcel() {
+  if (typeof XLSX === 'undefined') { showToast('Loading export library…', 'hk'); return; }
+  const wb = XLSX.utils.book_new();
+
+  // Overview
+  const ovData = [
+    ['EXECUTIVE TRIP BOOK 2026 — HK & CANTON FAIR','',''],
+    ['','',''],
+    ['HONG KONG PHASE','27 Apr – 1 May 2026','5 days'],
+    ['CANTON FAIR PHASE 3','1 May – 6 May 2026','5 days'],
+    ['','',''],
+    ['METRICS','Count',''],
+    ['HK Meetings', HK_EVENTS.length,''],
+    ['CF Events', CF_EVENTS.length,''],
+    ['Confirmed', [...HK_EVENTS,...CF_EVENTS].filter(e=>e.status==='confirmed').length,''],
+    ['Open Actions', ACTIONS.filter(a=>!a.done).length,''],
+    ['','',''],
+    ['Exported', new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}),''],
+  ];
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(ovData), 'Overview');
+
+  // HK Events
+  const hkData = [
+    ['Date','Time','Dur','GCal Color','Status','Title','Company','Venue','Attendees','Notes','Tags'],
+    ...HK_EVENTS.sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time))
+      .map(e=>[e.date,e.time,e.dur,e.color,e.status,e.title,e.co,e.venue,e.att,e.notes,(e.tags||[]).join(', ')])
+  ];
+  const wsHK = XLSX.utils.aoa_to_sheet(hkData);
+  wsHK['!cols'] = [{wch:12},{wch:7},{wch:7},{wch:16},{wch:11},{wch:36},{wch:26},{wch:32},{wch:30},{wch:44},{wch:28}];
+  XLSX.utils.book_append_sheet(wb, wsHK, 'HK Meetings');
+
+  // CF Events
+  const cfData = [
+    ['Date','Time','Dur','GCal Color','Status','Title','Exhibitor / Co','Venue / Hall','Attendees','Notes','Tags'],
+    ...CF_EVENTS.sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time))
+      .map(e=>[e.date,e.time,e.dur,e.color,e.status,e.title,e.co,e.venue,e.att,e.notes,(e.tags||[]).join(', ')])
+  ];
+  const wsCF = XLSX.utils.aoa_to_sheet(cfData);
+  wsCF['!cols'] = [{wch:12},{wch:7},{wch:7},{wch:16},{wch:11},{wch:36},{wch:26},{wch:32},{wch:30},{wch:44},{wch:28}];
+  XLSX.utils.book_append_sheet(wb, wsCF, 'Canton Fair');
+
+  // Actions
+  const actData = [
+    ['Action','Owner','Due','Phase','Status'],
+    ...ACTIONS.map(a=>[a.text,a.owner,a.due,a.phase==='hk'?'Hong Kong':'Canton Fair',a.done?'Done':'Open'])
+  ];
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(actData), 'Action Items');
+
+  // Contacts
+  const conData = [
+    ['Name','Role','Company','Phase','Tags'],
+    ...CONTACTS.map(c=>[c.name,c.role,c.co,c.phase==='hk'?'Hong Kong':'Canton Fair',c.tags.join(', ')])
+  ];
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(conData), 'Contacts');
+
+  // Logistics
+  const logData = [
+    ['Type','Title','Details','Status'],
+    ...LOGISTICS.flights.map(l=>['Flight',l.title,l.detail,l.stat==='conf'?'Confirmed':'Pending']),
+    ...LOGISTICS.hotels.map(l=>['Hotel',l.title,l.detail,l.stat==='conf'?'Confirmed':'Pending']),
+    ...LOGISTICS.ground.map(l=>['Transfer',l.title,l.detail,l.stat==='conf'?'Confirmed':'Pending']),
+  ];
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(logData), 'Logistics');
+
+  XLSX.writeFile(wb, `ExecutiveTripBook_HK_CantonFair_2026_${new Date().toISOString().slice(0,10)}.xlsx`);
+  showToast('Excel exported — 6 sheets ready', 'exp');
+}
+
+/* ═══════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════ */
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + ({'hk':'hk','cf':'cf','ok':'ok','exp':'exp'}[type]||'hk');
+  clearTimeout(t._to);
+  t._to = setTimeout(() => { t.className = 'toast'; }, 2800);
+}
+
+/* ═══════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════ */
+renderAll();
+document.getElementById('ts').textContent =
+  new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+</script>
+
+<!-- ═══════════ LOGISTICS EDIT MODAL ═══════════ -->
+<div class="moverlay" id="log-moverlay" onclick="handleLogMOverlay(event)">
+  <div class="mdrawer">
+    <div class="mdhandle"></div>
+    <button class="mdclose" onclick="closeLogModal()">&#10005;</button>
+    <div class="mdtitle" id="lmd-title">Edit Entry</div>
+    <div class="mdsub"   id="lmd-sub"></div>
+    <div class="fg"      id="lmd-form"></div>
+    <div class="form-footer" style="margin-top:14px">
+      <button class="fbtn primary" id="lmd-save" onclick="saveLogModal()">Save Changes</button>
+      <button class="fbtn ghost" onclick="closeLogModal()">Cancel</button>
+      <button class="fbtn" id="lmd-del"
+        style="color:#c62828;border:.5px solid rgba(198,40,40,.2);background:transparent;font-family:var(--body);font-size:12px;font-weight:500;padding:10px 16px;border-radius:var(--r-sm);cursor:pointer"
+        onclick="deleteLogItem(logModalId);closeLogModal()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function handleLogMOverlay(e) {
+  if (e.target === document.getElementById('log-moverlay')) closeLogModal();
+}
+</script>
+
+</body>
+</html>
