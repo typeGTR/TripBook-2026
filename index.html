@@ -840,10 +840,12 @@ body.modal-open {
   <span>Live · Updated <span id="ts">now</span></span>
   <span style="opacity:.3;margin:0 2px">|</span>
   <span id="viewcount">1 partner viewing</span>
+  <span id="sync-status" style="font-size:9px;color:rgba(255,255,255,0.4);transition:opacity .4s,color .3s;margin-left:4px">Live</span>
   <div class="live-bar-right">
     <button class="lbtn" onclick="exportICS('google')"><div class="gcal-badge">G</div>Google Cal</button>
     <button class="lbtn" onclick="exportICS('ios')">📅 iOS Cal</button>
     <button class="lbtn" onclick="doExportExcel()">⬇ Excel</button>
+    <button class="lbtn" onclick="clearAllData()" title="Reset all data to defaults" style="opacity:.5">↺</button>
   </div>
 </div>
 
@@ -1289,9 +1291,9 @@ function renderAgenda(events, containerId, phase) {
           ${ev.notes ? `<div class="ev-notes">${ev.notes}</div>` : ''}
           ${ev.att ? `<div class="ev-attendees">👥 ${ev.att}</div>` : ''}
         </div>
-        <div class="ev-acts">
-          <button class="ebtn ${editCls}" onclick="event.stopPropagation();openEdit(${ev.id},'${phase}')">Edit</button>
-          <button class="ebtn del" onclick="event.stopPropagation();delEv(${ev.id},'${phase}')">✕</button>
+        <div class="ev-acts" onclick="(function(e){e.stopPropagation();})(event)">
+          <button class="ebtn ${editCls}" onclick="openEdit(${ev.id},'${phase}')">Edit</button>
+          <button class="ebtn del" onclick="confirmDelEv(${ev.id},'${phase}')">✕ Del</button>
         </div>
       </div>`;
     });
@@ -1418,6 +1420,7 @@ function saveContactModal() {
   }
 
   renderContacts();
+  saveToStorage();
   closeContactModal();
   showToast(contactModalId ? 'Contact updated' : 'Contact added', 'hk');
   document.getElementById('ts').textContent = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
@@ -1427,6 +1430,7 @@ function deleteContact(id) {
   if (!confirm('Delete this contact? This cannot be undone.')) return;
   CONTACTS = CONTACTS.filter(c => c.id !== id);
   renderContacts();
+  saveToStorage();
   closeContactModal();
   showToast('Contact deleted', 'hk');
 }
@@ -1461,8 +1465,8 @@ function renderContacts() {
         <div class="ctags">${tagHTML(c.tags)}<span class="aphase ${c.phase}">${c.phase==='hk'?'HK':'CF'}</span></div>
         ${extraLines}
         <div class="ccard-actions">
-          <button class="c-ebtn edit" onclick="event.stopPropagation();openContactEdit(${c.id})">Edit</button>
-          <button class="c-ebtn del"  onclick="event.stopPropagation();deleteContact(${c.id})">Delete</button>
+          <button class="c-ebtn edit" onclick="openContactEdit(${c.id})">Edit</button>
+          <button class="c-ebtn del"  onclick="confirmDelContact(${c.id})">Delete</button>
         </div>
       </div>
     </div>`;
@@ -1515,6 +1519,7 @@ function deleteLogItem(id) {
   LOGISTICS.hotels  = LOGISTICS.hotels.filter(l => l.id !== id);
   LOGISTICS.ground  = LOGISTICS.ground.filter(l => l.id !== id);
   renderLogistics();
+  saveToStorage();
   showToast('Entry deleted', 'hk');
 }
 
@@ -1601,6 +1606,7 @@ function saveLogModal() {
   }
 
   renderLogistics();
+  saveToStorage();
   closeLogModal();
   showToast(logModalId ? 'Entry updated' : 'Entry added', 'hk');
   document.getElementById('ts').textContent = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
@@ -1632,8 +1638,8 @@ function renderLogistics() {
           <span class="log-stat ${l.stat}">${l.stat==='conf'?'Confirmed':l.stat==='tent'?'Tentative':'Pending'}</span>
           <span class="log-type-badge ${l.type}">${typeLabel}</span>
           <div style="display:flex;gap:4px;margin-top:2px">
-            <button class="log-ebtn edit" onclick="event.stopPropagation();openLogEdit(${l.id})">Edit</button>
-            <button class="log-ebtn del"  onclick="event.stopPropagation();deleteLogItem(${l.id})">✕</button>
+            <button class="log-ebtn edit" onclick="openLogEdit(${l.id})">Edit</button>
+            <button class="log-ebtn del"  onclick="confirmDelLog(${l.id})">✕</button>
           </div>
         </div>
       </div>`;
@@ -1657,6 +1663,106 @@ function updateKPIs() {
   set('ov-cf-m', cfM);
   set('kpi-hk', hkM); set('kpi-cf', cfM);
   set('kpi-conf', conf); set('kpi-open', openAct);
+}
+
+/* ── REAL-TIME SYNC ENGINE ─────────────────────────────
+   Uses localStorage as shared state store.
+   BroadcastChannel pushes updates to other open tabs instantly.
+   StorageEvent catches updates from other windows/tabs.
+   Falls back gracefully when APIs are unavailable (e.g. private mode).
+──────────────────────────────────────────────────── */
+const STORAGE_KEY = 'tripbook_2026_data';
+let bc = null;
+let isSyncing = false;
+
+try {
+  bc = new BroadcastChannel('tripbook_2026');
+  bc.onmessage = (e) => {
+    if (e.data && e.data.type === 'update' && !isSyncing) {
+      loadFromStorage(e.data.payload);
+      renderAll();
+      flashSyncIndicator('↓ Synced from partner');
+    }
+  };
+} catch(err) { bc = null; }
+
+// Also listen for cross-tab storage events (Safari / iOS fallback)
+window.addEventListener('storage', (e) => {
+  if (e.key === STORAGE_KEY && e.newValue && !isSyncing) {
+    try {
+      const data = JSON.parse(e.newValue);
+      loadFromStorage(data);
+      renderAll();
+      flashSyncIndicator('↓ Synced from partner');
+    } catch(err) {}
+  }
+});
+
+function getState() {
+  return {
+    hk: HK_EVENTS,
+    cf: CF_EVENTS,
+    actions: ACTIONS,
+    contacts: CONTACTS,
+    logistics: LOGISTICS,
+    ts: Date.now(),
+  };
+}
+
+function loadFromStorage(data) {
+  if (!data) return;
+  isSyncing = true;
+  if (data.hk)       HK_EVENTS = data.hk;
+  if (data.cf)       CF_EVENTS = data.cf;
+  if (data.actions)  ACTIONS   = data.actions;
+  if (data.contacts) CONTACTS  = data.contacts;
+  if (data.logistics) {
+    LOGISTICS.flights = data.logistics.flights || LOGISTICS.flights;
+    LOGISTICS.hotels  = data.logistics.hotels  || LOGISTICS.hotels;
+    LOGISTICS.ground  = data.logistics.ground  || LOGISTICS.ground;
+  }
+  isSyncing = false;
+}
+
+function saveToStorage() {
+  const state = getState();
+  const json  = JSON.stringify(state);
+  try { localStorage.setItem(STORAGE_KEY, json); } catch(err) {}
+  if (bc) {
+    try { bc.postMessage({ type: 'update', payload: state }); } catch(err) {}
+  }
+  const tsEl = document.getElementById('ts');
+  if (tsEl) tsEl.textContent = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  flashSyncIndicator('✓ Saved');
+}
+
+function loadInitialState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const data = JSON.parse(raw);
+      // Only load if stored data is newer than 7 days
+      if (data.ts && (Date.now() - data.ts) < 7 * 24 * 60 * 60 * 1000) {
+        loadFromStorage(data);
+      }
+    }
+  } catch(err) {}
+}
+
+function flashSyncIndicator(msg) {
+  const el = document.getElementById('sync-status');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.opacity = '1';
+  el.style.color = msg.startsWith('↓') ? '#34c759' : 'rgba(255,255,255,0.7)';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.style.opacity = '0.4'; el.textContent = 'Live'; }, 2500);
+}
+
+function clearAllData() {
+  if (!confirm('Reset all data to defaults? This will clear all changes made in this session.')) return;
+  try { localStorage.removeItem(STORAGE_KEY); } catch(err) {}
+  location.reload();
 }
 
 function renderAll() {
@@ -1753,6 +1859,7 @@ function saveModal() {
   if (modalPhase === 'hk') HK_EVENTS = [...arr];
   else CF_EVENTS = [...arr];
   renderAll();
+  saveToStorage();
   closeModal();
   showToast(modalEditId ? 'Event updated' : 'Event added to ' + (modalPhase==='hk'?'HK':'Canton Fair') + ' agenda', modalPhase);
   document.getElementById('ts').textContent = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
@@ -1765,11 +1872,24 @@ function deleteFromModal() {
   closeModal();
 }
 
+function confirmDelEv(id, phase) {
+  if (!confirm('Delete this event?')) return;
+  delEv(id, phase);
+}
 function delEv(id, phase) {
   if (phase === 'hk') HK_EVENTS = HK_EVENTS.filter(e => e.id !== id);
   else CF_EVENTS = CF_EVENTS.filter(e => e.id !== id);
   renderAll();
+  saveToStorage();
   showToast('Event deleted', 'hk');
+}
+function confirmDelLog(id) {
+  if (!confirm('Delete this entry?')) return;
+  deleteLogItem(id);
+}
+function confirmDelContact(id) {
+  if (!confirm('Delete this contact?')) return;
+  deleteContact(id);
 }
 
 function closeModal() { document.getElementById('moverlay').classList.remove('open'); releaseModalViewport(); }
@@ -1825,7 +1945,7 @@ function quickSave() {
   }
   if (phase === 'hk') HK_EVENTS.push(ev);
   else CF_EVENTS.push(ev);
-  renderAll(); clearForm();
+  renderAll(); saveToStorage(); clearForm();
   goView(phase);
   showToast('Event saved — view in ' + (phase==='hk'?'Hong Kong':'Canton Fair') + ' tab', phase);
   document.getElementById('ts').textContent = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
@@ -1842,7 +1962,7 @@ function clearForm() {
 ═══════════════════════════════════════════════ */
 function toggleAction(id) {
   const a = ACTIONS.find(x => x.id === id);
-  if (a) { a.done = !a.done; renderActions(); updateKPIs(); }
+  if (a) { a.done = !a.done; renderActions(); updateKPIs(); saveToStorage(); }
 }
 function promptAddAction() {
   const text = prompt('Action item description:');
@@ -1851,7 +1971,7 @@ function promptAddAction() {
   const due = prompt('Due date:', 'TBD') || 'TBD';
   const phase = confirm('Hong Kong phase? (Cancel = Canton Fair)') ? 'hk' : 'cf';
   ACTIONS.push({id:Date.now(),text,owner,due,done:false,phase});
-  renderActions(); updateKPIs();
+  renderActions(); updateKPIs(); saveToStorage();
   showToast('Action added', phase);
 }
 
@@ -1961,9 +2081,17 @@ function showToast(msg, type) {
 /* ═══════════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════════ */
+loadInitialState();
 renderAll();
 document.getElementById('ts').textContent =
   new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+// Warn user if localStorage is unavailable (private mode / iframe restrictions)
+try {
+  localStorage.setItem('_test', '1');
+  localStorage.removeItem('_test');
+} catch(err) {
+  setTimeout(() => showToast('Note: Changes won't persist — storage blocked by browser/iframe settings', 'hk'), 1200);
+}
 </script>
 
 <!-- ═══════════ LOGISTICS EDIT MODAL ═══════════ -->
