@@ -796,6 +796,206 @@ body.modal-open {
 .sticky-phase-bar.hk { background: var(--hk-lt); color: var(--hk); }
 .sticky-phase-bar.cf { background: var(--cf-lt); color: var(--cf); }
 .sep { width: 1px; height: 12px; background: currentColor; opacity: .2; }
+
+/* ═══════════════════════════════════════════════
+   SAVE STATUS CHIP
+═══════════════════════════════════════════════ */
+.save-chip {
+  font-size: 8px; font-weight: 600; letter-spacing: .4px;
+  padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+  transition: all .3s; cursor: default;
+  color: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.1);
+}
+.save-chip.saved    { color: #34c759; border-color: rgba(52,199,89,.3); }
+.save-chip.synced   { color: #30d0fe; border-color: rgba(48,208,254,.3); }
+.save-chip.syncing  { color: #ffd60a; border-color: rgba(255,214,10,.3); animation: pulse 1.4s ease-in-out infinite; }
+.save-chip.error    { color: #ff453a; border-color: rgba(255,69,58,.3); }
+.lbtn-drive { color: #30d0fe !important; border-color: rgba(48,208,254,.3) !important; }
+.lbtn-drive:hover { background: rgba(48,208,254,.1) !important; }
+
+/* ═══════════════════════════════════════════════
+   INVESTOR TIER BADGE
+═══════════════════════════════════════════════ */
+.inv-tier {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 9px; font-weight: 700; letter-spacing: .4px;
+  padding: 2px 9px; border-radius: 20px; text-transform: uppercase;
+}
+.inv-tier.tier1 { background: linear-gradient(135deg,#D4A843,#b8860b); color: #fff; }
+.inv-tier.tier2 { background: var(--hk-lt); color: var(--hk); }
+.inv-tier.tier3 { background: var(--cf-lt); color: var(--cf-2); }
+
+/* Outcome chip on event cards */
+.outcome-chip {
+  font-size: 10px; color: var(--gcal-green); font-weight: 500;
+  margin-top: 4px; display: flex; align-items: flex-start; gap: 4px;
+  border-top: .5px solid var(--border); padding-top: 4px; line-height: 1.5;
+}
+.commitment-chip {
+  font-size: 10px; color: var(--gcal-blue); font-weight: 500;
+  display: flex; align-items: flex-start; gap: 4px; margin-top: 2px; line-height: 1.5;
+}
+.budget-chip {
+  font-size: 9px; padding: 2px 8px; border-radius: 20px;
+  background: #e8f5e9; color: #2e7d32; font-weight: 600; margin-top: 4px; width: fit-content;
+}
+
+/* ═══════════════════════════════════════════════
+   BUDGET TRACKER PANEL
+═══════════════════════════════════════════════ */
+.budget-panel {
+  background: var(--surface); border-radius: var(--r);
+  border: .5px solid var(--border); box-shadow: var(--sh);
+  padding: 16px; margin-bottom: 14px;
+}
+.budget-panel-title {
+  font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 12px;
+}
+.budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media(max-width:480px){ .budget-grid{grid-template-columns:1fr} }
+.budget-card {
+  border-radius: var(--r-sm); padding: 12px 14px;
+  border: .5px solid var(--border);
+}
+.budget-card.hk { background: var(--hk-lt); border-color: rgba(11,39,64,.1); }
+.budget-card.cf { background: var(--cf-lt); border-color: rgba(107,30,15,.1); }
+.budget-card-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.budget-card.hk .budget-card-label { color: var(--hk); }
+.budget-card.cf .budget-card-label { color: var(--cf); }
+.budget-stat { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px; }
+.budget-stat-label { font-size: 10px; color: var(--ink-3); }
+.budget-stat-val { font-family: var(--display); font-size: 16px; font-weight: 700; }
+.budget-card.hk .budget-stat-val { color: var(--hk); }
+.budget-card.cf .budget-stat-val { color: var(--cf); }
+.budget-bar-wrap { height: 5px; background: rgba(0,0,0,.08); border-radius: 3px; margin-top: 8px; overflow: hidden; }
+.budget-bar-fill { height: 100%; border-radius: 3px; transition: width .5s ease; }
+.budget-card.hk .budget-bar-fill { background: var(--hk-acc); }
+.budget-card.cf .budget-bar-fill { background: var(--cf-acc); }
+.budget-events-count { font-size: 9px; color: var(--ink-3); margin-top: 5px; }
+
+/* ═══════════════════════════════════════════════
+   GOOGLE DRIVE PANEL
+═══════════════════════════════════════════════ */
+.drive-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 8000; display: none;
+}
+.drive-overlay.open { display: block; }
+.drive-panel {
+  position: fixed; top: 0; right: -380px;
+  width: 360px; height: 100vh; height: 100dvh;
+  background: var(--surface); z-index: 8001;
+  transition: right .3s cubic-bezier(.4,0,.2,1);
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  box-shadow: -6px 0 32px rgba(0,0,0,.18);
+  padding: 0 0 60px;
+}
+.drive-panel.open { right: 0; }
+@media(max-width:420px){ .drive-panel{width:100vw;right:-100vw} }
+.drive-panel-head {
+  background: #0d2137; color: #fff;
+  padding: 22px 18px 16px;
+  position: sticky; top: 0; z-index: 1;
+}
+.drive-panel-title { font-family: var(--display); font-size: 20px; font-weight: 700; margin-bottom: 3px; }
+.drive-panel-sub { font-size: 10px; color: rgba(255,255,255,.45); }
+.drive-close {
+  position: absolute; top: 18px; right: 16px;
+  background: rgba(255,255,255,.1); border: none; color: #fff;
+  width: 28px; height: 28px; border-radius: 50%;
+  font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.drive-body { padding: 16px; }
+.drive-section { margin-bottom: 22px; }
+.drive-section-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--hk); color: #fff;
+  font-size: 11px; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-right: 7px; flex-shrink: 0;
+}
+.drive-section-head {
+  display: flex; align-items: center;
+  font-size: 11px; font-weight: 600; color: var(--ink);
+  margin-bottom: 10px; text-transform: uppercase; letter-spacing: .8px;
+}
+.drive-status-row {
+  display: flex; align-items: center; gap: 9px;
+  background: var(--bg); border-radius: var(--r-sm);
+  padding: 10px 12px; margin-bottom: 14px;
+  border: .5px solid var(--border);
+}
+.drive-status-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--ink-3); flex-shrink: 0;
+  transition: background .3s;
+}
+.drive-status-dot.connected { background: #34c759; box-shadow: 0 0 0 2px rgba(52,199,89,.2); animation: pulse 2s ease-in-out infinite; }
+.drive-status-dot.syncing   { background: #ffd60a; animation: pulse 1s ease-in-out infinite; }
+.drive-status-dot.error     { background: #ff453a; }
+.drive-status-text { font-size: 11px; color: var(--ink-2); flex: 1; }
+.drive-input {
+  width: 100%; padding: 9px 11px;
+  border: .5px solid rgba(0,0,0,.15); border-radius: var(--r-sm);
+  font-size: 12px; font-family: var(--body);
+  background: #EDD9C0; color: var(--ink);
+  outline: none; transition: border .15s;
+}
+.drive-input:focus { border-color: var(--hk-mid); box-shadow: 0 0 0 2px rgba(58,124,181,.12); }
+.drive-input::placeholder { color: var(--ink-3); }
+.drive-row { display: flex; gap: 8px; margin-top: 8px; }
+.drive-btn {
+  padding: 9px 16px; border-radius: var(--r-sm);
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  font-family: var(--body); border: none; transition: all .15s; flex: 1;
+}
+.drive-btn.primary { background: var(--hk); color: #fff; }
+.drive-btn.primary:hover { background: var(--hk-2); }
+.drive-btn.secondary { background: var(--bg-2); color: var(--ink); border: .5px solid var(--border-2); flex: unset; }
+.drive-btn.secondary:hover { background: var(--border-2); }
+.drive-btn.danger { background: #fce4ec; color: #c62828; border: .5px solid rgba(198,40,40,.2); }
+.drive-connected-pill {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  background: #e8f5e9; border-radius: var(--r-sm);
+  padding: 8px 12px; margin-top: 8px;
+  font-size: 11px; color: #2e7d32; font-weight: 500;
+  border: .5px solid rgba(46,125,50,.2);
+}
+.drive-connected-pill a { color: var(--hk-mid); font-size: 11px; margin-left: auto; }
+.drive-auto-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 0; border-top: .5px solid var(--border); margin-top: 8px;
+}
+.drive-toggle-label { font-size: 11px; color: var(--ink-2); display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.drive-toggle-label input { width: 16px; height: 16px; cursor: pointer; accent-color: var(--hk); }
+.drive-last-sync { font-size: 9px; color: var(--ink-3); margin-top: 6px; }
+.drive-setup-details {
+  border: .5px solid var(--border); border-radius: var(--r-sm);
+  padding: 12px; margin-top: 8px;
+}
+.drive-setup-details summary {
+  font-size: 11px; font-weight: 600; color: var(--ink-2); cursor: pointer;
+  list-style: none; display: flex; align-items: center; gap: 6px;
+}
+.drive-setup-details summary::before { content: '⚙'; font-size: 12px; }
+.drive-setup-content { margin-top: 12px; font-size: 11px; color: var(--ink-2); line-height: 1.8; }
+.drive-setup-content ol { padding-left: 16px; }
+.drive-setup-content li { margin-bottom: 4px; }
+.drive-setup-content a { color: var(--hk-mid); }
+.drive-note {
+  background: var(--hk-lt); border-radius: var(--r-sm);
+  padding: 10px 12px; font-size: 10px; color: var(--hk);
+  line-height: 1.6; border: .5px solid rgba(11,39,64,.1); margin-top: 8px;
+}
+.drive-excel-row {
+  background: #e8f5e9; border-radius: var(--r-sm);
+  padding: 10px 12px; margin-bottom: 10px;
+  border: .5px solid rgba(46,125,50,.2);
+}
+.drive-excel-row h4 { font-size: 11px; font-weight: 600; color: #2e7d32; margin-bottom: 4px; }
+.drive-excel-row p { font-size: 10px; color: #33691e; line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -804,14 +1004,14 @@ body.modal-open {
 <div class="hero">
   <div class="hero-top">
     <div>
-      <div class="hero-eyebrow">Executive Trip Book · Confidential · 2026</div>
+      <div class="hero-eyebrow">Investor Trip Book · Confidential · 2026</div>
       <div class="hero-title">Hong Kong<br>&amp; <em>Canton Fair</em></div>
-      <div class="hero-sub">Business Delegation · Phase 3 Sourcing Mission</div>
+      <div class="hero-sub">Wellness &amp; Recovery Lab Investiture · Phase 3 Sourcing Mission</div>
     </div>
     <div class="hero-badge">
       <div class="hero-badge-inner">
         <p>Travel Window</p>
-        <div class="dates">HK: 27 Apr–1 May 2026<br>Canton: 1–6 May 2026</div>
+        <div class="dates">HK: 27 Apr–1 May 2026<br>Canton: 1–7 May 2026</div>
       </div>
     </div>
   </div>
@@ -841,9 +1041,11 @@ body.modal-open {
   <span style="opacity:.3;margin:0 2px">|</span>
   <span id="viewcount">1 partner viewing</span>
   <div class="live-bar-right">
+    <span class="save-chip" id="save-chip" title="Local save status">● Local</span>
     <button class="lbtn" onclick="exportICS('google')"><div class="gcal-badge">G</div>Google Cal</button>
     <button class="lbtn" onclick="exportICS('ios')">📅 iOS Cal</button>
     <button class="lbtn" onclick="doExportExcel()">⬇ Excel</button>
+    <button class="lbtn lbtn-drive" id="drive-btn" onclick="openDrivePanel()" title="Google Drive Sync">☁ Drive</button>
   </div>
 </div>
 
@@ -863,7 +1065,7 @@ body.modal-open {
       </div>
     </div>
     <div class="pcard cf-card" onclick="goView('cf')">
-      <div class="pcard-eyebrow">Phase 2 · 1 May – 6 May 2026</div>
+      <div class="pcard-eyebrow">Phase 2 · 1 May – 7 May 2026</div>
       <div class="pcard-title">Canton Fair<br>Phase 3</div>
       <div class="pcard-sub">5 days · Guangzhou, China</div>
       <div class="pcard-stats">
@@ -879,6 +1081,25 @@ body.modal-open {
     <div class="kcard"><div class="kcard-n" style="color:var(--cf)" id="kpi-cf">0</div><div class="kcard-l">CF Sessions</div></div>
     <div class="kcard"><div class="kcard-n" style="color:var(--gcal-green)" id="kpi-conf">0</div><div class="kcard-l">Confirmed</div></div>
     <div class="kcard"><div class="kcard-n" style="color:var(--gcal-yellow)" id="kpi-open">0</div><div class="kcard-l">Open Actions</div></div>
+  </div>
+
+  <!-- Budget Tracker -->
+  <div class="budget-panel">
+    <div class="budget-panel-title">Trip Budget Overview</div>
+    <div class="budget-grid" id="budget-grid">
+      <div class="budget-card hk">
+        <div class="budget-card-label">🇭🇰 Hong Kong Phase</div>
+        <div class="budget-stat"><span class="budget-stat-label">Meetings with budget</span><span class="budget-stat-val" id="bgt-hk-count">—</span></div>
+        <div class="budget-stat"><span class="budget-stat-label">Outcomes recorded</span><span class="budget-stat-val" id="bgt-hk-out">—</span></div>
+        <div class="budget-events-count" id="bgt-hk-lbl">27 Apr – 1 May 2026</div>
+      </div>
+      <div class="budget-card cf">
+        <div class="budget-card-label">🇨🇳 Canton Fair Phase</div>
+        <div class="budget-stat"><span class="budget-stat-label">Meetings with budget</span><span class="budget-stat-val" id="bgt-cf-count">—</span></div>
+        <div class="budget-stat"><span class="budget-stat-label">Outcomes recorded</span><span class="budget-stat-val" id="bgt-cf-out">—</span></div>
+        <div class="budget-events-count" id="bgt-cf-lbl">1 May – 7 May 2026</div>
+      </div>
+    </div>
   </div>
 
   <div class="legend-panel">
@@ -909,17 +1130,17 @@ body.modal-open {
 
 <!-- ══════════ HK VIEW ══════════ -->
 <div class="view" id="view-hk">
-  <div class="sticky-phase-bar hk">🇭🇰 Hong Kong Business Phase <div class="sep"></div> 27 Apr – 1 May 2026</div>
+  <div class="sticky-phase-bar hk">🇭🇰 Hong Kong · Wellness &amp; Recovery Lab Investiture <div class="sep"></div> 27 Apr – 1 May 2026</div>
 
   <div class="phase-banner hk" style="margin-top:12px">
-    <div class="pb-label">Phase 1 Objectives</div>
-    <div class="pb-title">Hong Kong Business Meetings</div>
-    <div class="pb-sub">Partner alignment · Market entry · Legal & Compliance · Distribution strategy</div>
+    <div class="pb-label">Phase 1 — Investor Objectives</div>
+    <div class="pb-title">Wellness &amp; Recovery Lab<br><em style="font-size:.8em;opacity:.85">Business Investiture · Hong Kong</em></div>
+    <div class="pb-sub">Investor alignment · Business investiture · Legal &amp; Compliance · Distribution &amp; Market strategy</div>
     <div class="pb-pills">
-      <span class="pb-pill">Strategic Partnership Review</span>
+      <span class="pb-pill">Business Investiture Ceremony</span>
+      <span class="pb-pill">Investor Alignment Sessions</span>
       <span class="pb-pill">JV Structure Negotiation</span>
-      <span class="pb-pill">Distribution Expansion</span>
-      <span class="pb-pill">Regulatory Briefing</span>
+      <span class="pb-pill">Regulatory Compliance Review</span>
       <span class="pb-pill">Market Intelligence</span>
       <span class="pb-pill">Deal Closing</span>
     </div>
@@ -934,7 +1155,7 @@ body.modal-open {
 
 <!-- ══════════ CANTON FAIR VIEW ══════════ -->
 <div class="view" id="view-cf">
-  <div class="sticky-phase-bar cf">🇨🇳 Canton Fair Phase 3 <div class="sep"></div> 1 May – 6 May 2026 · Guangzhou</div>
+  <div class="sticky-phase-bar cf">🇨🇳 Canton Fair Phase 3 <div class="sep"></div> 1 May – 7 May 2026 · Guangzhou</div>
 
   <div class="phase-banner cf" style="margin-top:12px">
     <div class="pb-label">Phase 2 Objectives</div>
@@ -1025,7 +1246,7 @@ body.modal-open {
       </div>
       <div class="fgroup">
         <label>Date</label>
-        <input type="date" id="qdate" min="2026-04-27" max="2026-05-06">
+        <input type="date" id="qdate" min="2026-04-27" max="2026-05-07">
       </div>
       <div class="fgroup">
         <label>Time</label>
@@ -1067,6 +1288,19 @@ body.modal-open {
         <label>Follow-up Action (optional)</label>
         <input type="text" id="qaction" placeholder="e.g. Send proposal by 5 May">
       </div>
+      <div class="fgroup">
+        <label>Investor Tier</label>
+        <select id="qitier">
+          <option value="">— Not set —</option>
+          <option value="tier1">⭐ Tier 1 — Lead Investor</option>
+          <option value="tier2">★ Tier 2 — Strategic Partner</option>
+          <option value="tier3">☆ Tier 3 — Distribution / Operational</option>
+        </select>
+      </div>
+      <div class="fgroup">
+        <label>Budget / Cost</label>
+        <input type="text" id="qbudget" placeholder="e.g. HKD 5,000">
+      </div>
       <div class="fgroup full">
         <label>Tags (comma separated)</label>
         <input type="text" id="qtags" placeholder="e.g. Priority, Legal, Sourcing">
@@ -1103,7 +1337,101 @@ body.modal-open {
 
 <div class="toast" id="toast"></div>
 
+<!-- ═══════════ GOOGLE DRIVE PANEL ═══════════ -->
+<div class="drive-overlay" id="drive-overlay" onclick="closeDrivePanel()"></div>
+<div class="drive-panel" id="drive-panel">
+  <div class="drive-panel-head">
+    <button class="drive-close" onclick="closeDrivePanel()">✕</button>
+    <div class="drive-panel-title">☁ Google Drive Sync</div>
+    <div class="drive-panel-sub">Connect your Google Sheet for live mobile updates</div>
+  </div>
+  <div class="drive-body">
+
+    <!-- Status -->
+    <div class="drive-status-row">
+      <div class="drive-status-dot" id="dp-dot"></div>
+      <div class="drive-status-text" id="dp-status">Not connected · changes saved locally</div>
+    </div>
+
+    <!-- Step 1: Sign In -->
+    <div class="drive-section">
+      <div class="drive-section-head"><span class="drive-section-num">1</span>Google Sign-In</div>
+      <button class="drive-btn primary" id="dp-signin" onclick="signInToGoogle()">Sign in with Google</button>
+      <button class="drive-btn danger" id="dp-signout" style="display:none;margin-top:6px" onclick="signOutGoogle()">Sign Out</button>
+    </div>
+
+    <!-- Step 2: Spreadsheet -->
+    <div class="drive-section">
+      <div class="drive-section-head"><span class="drive-section-num">2</span>Connect Spreadsheet</div>
+      <input type="text" class="drive-input" id="dp-sheet-url" placeholder="Paste Google Sheets URL or ID">
+      <div class="drive-row">
+        <button class="drive-btn primary" onclick="connectFromInput()">Connect</button>
+        <button class="drive-btn secondary" onclick="createNewSpreadsheet()">+ Create New</button>
+      </div>
+      <div class="drive-connected-pill" id="dp-connected-pill" style="display:none">
+        ✓ Connected: <strong id="dp-sheet-name">Trip Book 2026</strong>
+        <a id="dp-sheet-link" href="#" target="_blank" rel="noopener">Open ↗</a>
+      </div>
+    </div>
+
+    <!-- Step 3: Sync -->
+    <div class="drive-section">
+      <div class="drive-section-head"><span class="drive-section-num">3</span>Sync Data</div>
+      <div class="drive-excel-row">
+        <h4>📊 Live Google Sheet — 7 tabs</h4>
+        <p>Overview · HK Events · Canton Fair · Actions · Contacts · Logistics · Investor Notes — all readable and editable as a regular spreadsheet.</p>
+      </div>
+      <div class="drive-row">
+        <button class="drive-btn primary" onclick="syncToSheets()">↑ Push to Drive</button>
+        <button class="drive-btn secondary" onclick="syncFromSheets()">↓ Pull from Drive</button>
+      </div>
+      <div class="drive-auto-row">
+        <label class="drive-toggle-label">
+          <input type="checkbox" id="dp-autosync" onchange="setAutoSync(this.checked)">
+          Auto-sync on every change
+        </label>
+      </div>
+      <div class="drive-last-sync" id="dp-last-sync">Never synced to Drive</div>
+    </div>
+
+    <!-- Setup Instructions (collapsed) -->
+    <details class="drive-setup-details">
+      <summary>Google API Setup Instructions</summary>
+      <div class="drive-setup-content">
+        <p><strong>One-time setup required:</strong></p>
+        <ol>
+          <li>Go to <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a></li>
+          <li>Create a new project, then enable <strong>Google Sheets API</strong> &amp; <strong>Drive API</strong></li>
+          <li>Go to Credentials → Create OAuth 2.0 Client ID (Web application)</li>
+          <li>Add your deployment URL to <em>Authorised JavaScript Origins</em></li>
+          <li>Copy your Client ID and paste below</li>
+        </ol>
+        <input type="text" class="drive-input" id="dp-client-id" placeholder="Your Google OAuth Client ID (ends in .apps.googleusercontent.com)" style="margin-top:10px">
+        <button class="drive-btn primary" onclick="saveClientId()" style="margin-top:6px;width:100%">Save &amp; Initialise</button>
+        <div class="drive-note" style="margin-top:10px">
+          <strong>Note:</strong> Google OAuth requires an HTTPS URL. Deploy this app to
+          <a href="https://pages.github.com" target="_blank" rel="noopener">GitHub Pages</a>,
+          Netlify, or any HTTPS host to enable Drive sync. Running from a local file
+          (file://) only supports localStorage and Excel export.
+        </div>
+      </div>
+    </details>
+
+    <!-- Fallback: manual Excel workflow -->
+    <div class="drive-section" style="margin-top:22px">
+      <div class="drive-section-head" style="font-size:10px">Manual Workflow (no API needed)</div>
+      <p style="font-size:10px;color:var(--ink-3);line-height:1.7;margin-bottom:8px">
+        Export Excel → upload to Google Drive → team opens in Google Sheets for read access. Any edits in the sheet can be re-imported below.
+      </p>
+      <button class="drive-btn secondary" onclick="doExportExcel();closeDrivePanel()">⬇ Export Excel to upload to Drive</button>
+    </div>
+
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://apis.google.com/js/api.js" async defer onload="onGapiLoad()"></script>
+<script src="https://accounts.google.com/gsi/client" async defer onload="onGisLoad()"></script>
 <script>
 /* ═══════════════════════════════════════════════
    DATA
@@ -1275,6 +1603,7 @@ function renderAgenda(events, containerId, phase) {
     dayEvs.forEach(ev => {
       const col = GCAL_COLORS[ev.color] || '#1a73e8';
       const editCls = phase === 'cf' ? 'cf-edit' : 'hk-edit';
+      const tierLabels = {tier1:'⭐ Lead Investor',tier2:'★ Strategic Partner',tier3:'☆ Distribution'};
       html += `<div class="ev" style="--ev-color:${col}" onclick="openEdit(${ev.id},'${phase}')">
         <div class="ev-time">
           <div class="ev-t">${ev.time}</div>
@@ -1285,9 +1614,16 @@ function renderAgenda(events, containerId, phase) {
           <div class="ev-title">${ev.title}</div>
           <div class="ev-company">${ev.co}</div>
           <div class="ev-loc">📍 ${ev.venue}</div>
-          <div class="ev-tags">${statusTag(ev.status)}${tagHTML(ev.tags)}</div>
+          <div class="ev-tags">
+            ${statusTag(ev.status)}
+            ${ev.investorTier ? `<span class="inv-tier ${ev.investorTier}">${tierLabels[ev.investorTier]||ev.investorTier}</span>` : ''}
+            ${tagHTML(ev.tags)}
+          </div>
+          ${ev.budget ? `<div class="budget-chip">💰 ${ev.budget}</div>` : ''}
           ${ev.notes ? `<div class="ev-notes">${ev.notes}</div>` : ''}
           ${ev.att ? `<div class="ev-attendees">👥 ${ev.att}</div>` : ''}
+          ${ev.outcome ? `<div class="outcome-chip">✅ ${ev.outcome}</div>` : ''}
+          ${ev.commitment ? `<div class="commitment-chip">🤝 ${ev.commitment}</div>` : ''}
         </div>
         <div class="ev-acts">
           <button class="ebtn ${editCls}" onclick="event.stopPropagation();openEdit(${ev.id},'${phase}')">Edit</button>
@@ -1390,6 +1726,26 @@ function buildContactForm(c) {
       <label>Tags (comma separated)</label>
       <input type="text" id="cf-tags" value="${(e.tags||[]).join(', ')}" placeholder="e.g. Priority, Legal, Partner">
     </div>
+    <div class="fgroup">
+      <label>Investor / Stakeholder Type</label>
+      <select id="cf-invtype">
+        <option value="" ${!e.investorType?'selected':''}>— Not set —</option>
+        <option value="lead_investor" ${e.investorType==='lead_investor'?'selected':''}>⭐ Lead Investor</option>
+        <option value="strategic" ${e.investorType==='strategic'?'selected':''}>★ Strategic Partner</option>
+        <option value="distribution" ${e.investorType==='distribution'?'selected':''}>🔗 Distribution Partner</option>
+        <option value="supplier" ${e.investorType==='supplier'?'selected':''}>📦 Supplier</option>
+        <option value="legal" ${e.investorType==='legal'?'selected':''}>⚖ Legal / Advisory</option>
+        <option value="government" ${e.investorType==='government'?'selected':''}>🏛 Government / Regulatory</option>
+      </select>
+    </div>
+    <div class="fgroup">
+      <label>Deal / Investment Value</label>
+      <input type="text" id="cf-dealval" value="${e.dealValue||''}" placeholder="e.g. USD 2M · HKD 50M deal">
+    </div>
+    <div class="fgroup full">
+      <label>Meeting Objective</label>
+      <input type="text" id="cf-objective" value="${e.meetingObjective||''}" placeholder="What we want to achieve in this meeting">
+    </div>
     <div class="fgroup full">
       <label>Notes</label>
       <textarea id="cf-notes" placeholder="Key relationship notes, context, follow-ups…">${e.notes||''}</textarea>
@@ -1410,11 +1766,15 @@ function saveContactModal() {
 
   if (!name) { showToast('Please enter a name', 'hk'); return; }
 
+  const investorType  = document.getElementById('cf-invtype').value;
+  const dealValue     = document.getElementById('cf-dealval').value.trim();
+  const meetingObjective = document.getElementById('cf-objective').value.trim();
+
   if (contactModalId) {
     const idx = CONTACTS.findIndex(c => c.id === contactModalId);
-    if (idx >= 0) CONTACTS[idx] = { id: contactModalId, name, role, co, email, phone, phase, bg, tags, notes };
+    if (idx >= 0) CONTACTS[idx] = { id: contactModalId, name, role, co, email, phone, phase, bg, tags, notes, investorType, dealValue, meetingObjective };
   } else {
-    CONTACTS.push({ id: nextId++, name, role, co, email, phone, phase, bg, tags, notes });
+    CONTACTS.push({ id: nextId++, name, role, co, email, phone, phase, bg, tags, notes, investorType, dealValue, meetingObjective });
   }
 
   renderContacts();
@@ -1450,6 +1810,8 @@ function renderContacts() {
     const extraLines = [
       c.email ? `<div style="font-size:10px;color:var(--hk-mid);margin-top:3px">✉ ${c.email}</div>` : '',
       c.phone ? `<div style="font-size:10px;color:var(--ink-3);margin-top:1px">📞 ${c.phone}</div>` : '',
+      c.meetingObjective ? `<div style="font-size:10px;color:var(--hk);margin-top:3px">🎯 ${c.meetingObjective}</div>` : '',
+      c.dealValue ? `<div style="font-size:10px;color:var(--gcal-green);font-weight:600;margin-top:2px">💼 ${c.dealValue}</div>` : '',
       c.notes ? `<div style="font-size:10px;color:var(--ink-3);margin-top:4px;line-height:1.5;border-top:.5px solid var(--border);padding-top:5px">${c.notes}</div>` : '',
     ].join('');
     return `<div class="ccard" onclick="openContactEdit(${c.id})">
@@ -1458,7 +1820,11 @@ function renderContacts() {
         <div class="cname">${c.name}</div>
         <div class="crole">${c.role}</div>
         <div class="cco">${c.co}</div>
-        <div class="ctags">${tagHTML(c.tags)}<span class="aphase ${c.phase}">${c.phase==='hk'?'HK':'CF'}</span></div>
+        <div class="ctags">
+          ${tagHTML(c.tags)}
+          <span class="aphase ${c.phase}">${c.phase==='hk'?'HK':'CF'}</span>
+          ${c.investorType ? `<span class="tag exec" style="font-size:8px">${{lead_investor:'⭐ Lead',strategic:'★ Strategic',distribution:'🔗 Distrib.',supplier:'📦 Supplier',legal:'⚖ Legal',government:'🏛 Gov.'}[c.investorType]||c.investorType}</span>` : ''}
+        </div>
         ${extraLines}
         <div class="ccard-actions">
           <button class="c-ebtn edit" onclick="event.stopPropagation();openContactEdit(${c.id})">Edit</button>
@@ -1667,6 +2033,8 @@ function renderAll() {
   renderActions();
   renderLogistics();
   updateKPIs();
+  updateBudget();
+  autoSave();
 }
 
 /* ═══════════════════════════════════════════════
@@ -1684,7 +2052,7 @@ function buildModalForm(ev) {
   const e = ev || {};
   const colOpts = COL_OPTS.map(([v,l]) => `<option value="${v}" ${e.color===v?'selected':''}>${l}</option>`).join('');
   return `
-    <div class="fgroup"><label>Date</label><input type="date" id="mf-date" value="${e.date||''}" min="2026-04-27" max="2026-05-06"></div>
+    <div class="fgroup"><label>Date</label><input type="date" id="mf-date" value="${e.date||''}" min="2026-04-27" max="2026-05-07"></div>
     <div class="fgroup"><label>Time</label><input type="time" id="mf-time" value="${e.time||''}"></div>
     <div class="fgroup"><label>Duration</label><input type="text" id="mf-dur" value="${e.dur||''}" placeholder="e.g. 1h 30m"></div>
     <div class="fgroup"><label>Calendar Color</label><select id="mf-col">${colOpts}</select></div>
@@ -1701,6 +2069,21 @@ function buildModalForm(ev) {
     <div class="fgroup full"><label>Venue / Location / Hall</label><input type="text" id="mf-venue" value="${e.venue||''}"></div>
     <div class="fgroup full"><label>Attendees</label><input type="text" id="mf-att" value="${e.att||''}"></div>
     <div class="fgroup full"><label>Notes / Discussion Points</label><textarea id="mf-notes">${e.notes||''}</textarea></div>
+    <div class="fgroup">
+      <label>Investor Tier</label>
+      <select id="mf-itier">
+        <option value="" ${!e.investorTier?'selected':''}>— Not set —</option>
+        <option value="tier1" ${e.investorTier==='tier1'?'selected':''}>⭐ Tier 1 — Lead Investor</option>
+        <option value="tier2" ${e.investorTier==='tier2'?'selected':''}>★ Tier 2 — Strategic Partner</option>
+        <option value="tier3" ${e.investorTier==='tier3'?'selected':''}>☆ Tier 3 — Distribution / Operational</option>
+      </select>
+    </div>
+    <div class="fgroup">
+      <label>Budget / Cost (e.g. HKD 5,000)</label>
+      <input type="text" id="mf-budget" value="${e.budget||''}" placeholder="e.g. HKD 5,000">
+    </div>
+    <div class="fgroup full"><label>Post-Meeting Outcome / Decision</label><textarea id="mf-outcome" placeholder="What was agreed, decided, or committed to…">${e.outcome||''}</textarea></div>
+    <div class="fgroup full"><label>Commitment Made (if any)</label><input type="text" id="mf-commitment" value="${e.commitment||''}" placeholder="e.g. Send term sheet by 3 May · Sign LOI on 30 Apr"></div>
   `;
 }
 
@@ -1743,6 +2126,10 @@ function saveModal() {
     venue: g('mf-venue').value,
     att: g('mf-att').value,
     notes: g('mf-notes').value,
+    investorTier: g('mf-itier').value,
+    budget: g('mf-budget').value.trim(),
+    outcome: g('mf-outcome').value.trim(),
+    commitment: g('mf-commitment').value.trim(),
   };
   if (!ev.title) { showToast('Please enter a title', 'hk'); return; }
   const arr = modalPhase === 'hk' ? HK_EVENTS : CF_EVENTS;
@@ -1818,6 +2205,9 @@ function quickSave() {
     att: g('qatt').value,
     notes: g('qnotes').value,
     tags: g('qtags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    investorTier: g('qitier') ? g('qitier').value : '',
+    budget: g('qbudget') ? g('qbudget').value.trim() : '',
+    outcome: '', commitment: '',
   };
   const action = g('qaction').value.trim();
   if (action) {
@@ -1885,10 +2275,10 @@ function doExportExcel() {
 
   // Overview
   const ovData = [
-    ['EXECUTIVE TRIP BOOK 2026 — HK & CANTON FAIR','',''],
+    ['INVESTOR TRIP BOOK 2026 — WELLNESS & RECOVERY LAB INVESTITURE + CANTON FAIR','',''],
     ['','',''],
-    ['HONG KONG PHASE','27 Apr – 1 May 2026','5 days'],
-    ['CANTON FAIR PHASE 3','1 May – 6 May 2026','5 days'],
+    ['HONG KONG PHASE — WELLNESS & RECOVERY LAB INVESTITURE','27 Apr – 1 May 2026','5 days'],
+    ['CANTON FAIR PHASE 3 — SOURCING MISSION','1 May – 7 May 2026','7 days'],
     ['','',''],
     ['METRICS','Count',''],
     ['HK Meetings', HK_EVENTS.length,''],
@@ -1902,23 +2292,39 @@ function doExportExcel() {
 
   // HK Events
   const hkData = [
-    ['Date','Time','Dur','GCal Color','Status','Title','Company','Venue','Attendees','Notes','Tags'],
+    ['Date','Time','Dur','Color','Status','Title','Company','Venue','Attendees','Notes','Tags','Investor Tier','Budget','Outcome','Commitment'],
     ...HK_EVENTS.sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time))
-      .map(e=>[e.date,e.time,e.dur,e.color,e.status,e.title,e.co,e.venue,e.att,e.notes,(e.tags||[]).join(', ')])
+      .map(e=>[e.date,e.time,e.dur,e.color,e.status,e.title,e.co,e.venue,e.att,e.notes,(e.tags||[]).join(', '),e.investorTier||'',e.budget||'',e.outcome||'',e.commitment||''])
   ];
   const wsHK = XLSX.utils.aoa_to_sheet(hkData);
-  wsHK['!cols'] = [{wch:12},{wch:7},{wch:7},{wch:16},{wch:11},{wch:36},{wch:26},{wch:32},{wch:30},{wch:44},{wch:28}];
+  wsHK['!cols'] = [{wch:12},{wch:7},{wch:7},{wch:14},{wch:11},{wch:36},{wch:26},{wch:32},{wch:30},{wch:44},{wch:28},{wch:20},{wch:16},{wch:40},{wch:40}];
   XLSX.utils.book_append_sheet(wb, wsHK, 'HK Meetings');
 
   // CF Events
   const cfData = [
-    ['Date','Time','Dur','GCal Color','Status','Title','Exhibitor / Co','Venue / Hall','Attendees','Notes','Tags'],
+    ['Date','Time','Dur','Color','Status','Title','Exhibitor / Co','Venue / Hall','Attendees','Notes','Tags','Investor Tier','Budget','Outcome','Commitment'],
     ...CF_EVENTS.sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time))
-      .map(e=>[e.date,e.time,e.dur,e.color,e.status,e.title,e.co,e.venue,e.att,e.notes,(e.tags||[]).join(', ')])
+      .map(e=>[e.date,e.time,e.dur,e.color,e.status,e.title,e.co,e.venue,e.att,e.notes,(e.tags||[]).join(', '),e.investorTier||'',e.budget||'',e.outcome||'',e.commitment||''])
   ];
   const wsCF = XLSX.utils.aoa_to_sheet(cfData);
-  wsCF['!cols'] = [{wch:12},{wch:7},{wch:7},{wch:16},{wch:11},{wch:36},{wch:26},{wch:32},{wch:30},{wch:44},{wch:28}];
+  wsCF['!cols'] = [{wch:12},{wch:7},{wch:7},{wch:14},{wch:11},{wch:36},{wch:26},{wch:32},{wch:30},{wch:44},{wch:28},{wch:20},{wch:16},{wch:40},{wch:40}];
   XLSX.utils.book_append_sheet(wb, wsCF, 'Canton Fair');
+
+  // Investor Notes (dedicated sheet)
+  const invData = [
+    ['Phase','Investor Tier','Title','Company','Budget','Outcome','Commitment','Date'],
+    ...[...HK_EVENTS,...CF_EVENTS]
+      .filter(e => e.investorTier || e.outcome || e.commitment || e.budget)
+      .sort((a,b)=>a.date.localeCompare(b.date))
+      .map(e=>[
+        HK_EVENTS.includes(e)?'Hong Kong':'Canton Fair',
+        e.investorTier||'', e.title||'', e.co||'',
+        e.budget||'', e.outcome||'', e.commitment||'', e.date||''
+      ])
+  ];
+  const wsInv = XLSX.utils.aoa_to_sheet(invData);
+  wsInv['!cols'] = [{wch:14},{wch:18},{wch:36},{wch:26},{wch:16},{wch:46},{wch:46},{wch:12}];
+  XLSX.utils.book_append_sheet(wb, wsInv, 'Investor Notes');
 
   // Actions
   const actData = [
@@ -1929,8 +2335,8 @@ function doExportExcel() {
 
   // Contacts
   const conData = [
-    ['Name','Role','Company','Phase','Tags'],
-    ...CONTACTS.map(c=>[c.name,c.role,c.co,c.phase==='hk'?'Hong Kong':'Canton Fair',c.tags.join(', ')])
+    ['Name','Role','Company','Phase','Tags','Email','Phone','Investor Type','Deal Value','Meeting Objective','Notes'],
+    ...CONTACTS.map(c=>[c.name,c.role,c.co,c.phase==='hk'?'Hong Kong':'Canton Fair',(c.tags||[]).join(', '),c.email||'',c.phone||'',c.investorType||'',c.dealValue||'',c.meetingObjective||'',c.notes||''])
   ];
   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(conData), 'Contacts');
 
@@ -1943,8 +2349,424 @@ function doExportExcel() {
   ];
   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(logData), 'Logistics');
 
-  XLSX.writeFile(wb, `ExecutiveTripBook_HK_CantonFair_2026_${new Date().toISOString().slice(0,10)}.xlsx`);
-  showToast('Excel exported — 6 sheets ready', 'exp');
+  XLSX.writeFile(wb, `InvestorTripBook_HK_CantonFair_2026_${new Date().toISOString().slice(0,10)}.xlsx`);
+  showToast('Excel exported — 7 sheets ready (incl. Investor Notes)', 'exp');
+}
+
+/* ═══════════════════════════════════════════════
+   LOCALSTORAGE PERSISTENCE
+═══════════════════════════════════════════════ */
+const STORE_KEY  = 'tripbook_2026_data';
+const CONFIG_KEY = 'tripbook_2026_cfg';
+
+function getConfig(k) {
+  try { return (JSON.parse(localStorage.getItem(CONFIG_KEY)||'{}'))[k]; }
+  catch { return null; }
+}
+function setConfig(k, v) {
+  try {
+    const o = JSON.parse(localStorage.getItem(CONFIG_KEY)||'{}');
+    o[k] = v; localStorage.setItem(CONFIG_KEY, JSON.stringify(o));
+  } catch {}
+}
+
+function autoSave() {
+  try {
+    const snap = {
+      HK_EVENTS, CF_EVENTS, ACTIONS, CONTACTS,
+      LOGISTICS, nextId, ts: Date.now()
+    };
+    localStorage.setItem(STORE_KEY, JSON.stringify(snap));
+    setSaveChip('saved', '● Saved');
+    setTimeout(() => setSaveChip('local', '● Local'), 2000);
+    if (getConfig('autoSync') && gIsSignedIn && gSpreadsheetId) {
+      syncToSheets();
+    }
+  } catch {}
+}
+
+function loadFromLocal() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return false;
+    const d = JSON.parse(raw);
+    if (d.HK_EVENTS)   HK_EVENTS = d.HK_EVENTS;
+    if (d.CF_EVENTS)   CF_EVENTS = d.CF_EVENTS;
+    if (d.ACTIONS)     ACTIONS   = d.ACTIONS;
+    if (d.CONTACTS)    CONTACTS  = d.CONTACTS;
+    if (d.LOGISTICS) {
+      LOGISTICS.flights = d.LOGISTICS.flights || LOGISTICS.flights;
+      LOGISTICS.hotels  = d.LOGISTICS.hotels  || LOGISTICS.hotels;
+      LOGISTICS.ground  = d.LOGISTICS.ground  || LOGISTICS.ground;
+    }
+    if (d.nextId) nextId = d.nextId;
+    return true;
+  } catch { return false; }
+}
+
+function setSaveChip(cls, txt) {
+  const c = document.getElementById('save-chip');
+  if (!c) return;
+  c.className = 'save-chip ' + cls;
+  c.textContent = txt;
+}
+
+/* Wrap all mutating functions to auto-save */
+const _origSaveModal    = typeof saveModal    !== 'undefined' ? saveModal    : null;
+const _origSaveLog      = typeof saveLogModal !== 'undefined' ? saveLogModal : null;
+
+/* ═══════════════════════════════════════════════
+   BUDGET TRACKER
+═══════════════════════════════════════════════ */
+function updateBudget() {
+  const hkB = HK_EVENTS.filter(e => e.budget && e.budget.trim()).length;
+  const cfB = CF_EVENTS.filter(e => e.budget && e.budget.trim()).length;
+  const hkO = HK_EVENTS.filter(e => e.outcome && e.outcome.trim()).length;
+  const cfO = CF_EVENTS.filter(e => e.outcome && e.outcome.trim()).length;
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  set('bgt-hk-count', hkB || '—');
+  set('bgt-cf-count', cfB || '—');
+  set('bgt-hk-out',   hkO || '—');
+  set('bgt-cf-out',   cfO || '—');
+  set('bgt-hk-lbl', `${HK_EVENTS.length} meetings · 27 Apr – 1 May 2026`);
+  set('bgt-cf-lbl', `${CF_EVENTS.length} sessions · 1 May – 7 May 2026`);
+}
+
+/* ═══════════════════════════════════════════════
+   GOOGLE DRIVE PANEL
+═══════════════════════════════════════════════ */
+let gIsSignedIn = false;
+let gTokenClient = null;
+let gAccessToken = null;
+let gSpreadsheetId = getConfig('sheetId') || null;
+let gGapiReady = false;
+let gGisReady  = false;
+
+const SHEET_NAMES = ['Overview','HK_Events','CF_Events','Actions','Contacts','Logistics','Investor_Notes'];
+
+function onGapiLoad() {
+  gapi.load('client', async () => {
+    try {
+      await gapi.client.init({
+        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4']
+      });
+      gGapiReady = true;
+      tryInitAuth();
+    } catch {}
+  });
+}
+function onGisLoad() { gGisReady = true; tryInitAuth(); }
+
+function tryInitAuth() {
+  if (!gGapiReady || !gGisReady) return;
+  const clientId = getConfig('clientId');
+  if (!clientId) return;
+  gTokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: clientId,
+    scope: 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file',
+    callback: onTokenResponse,
+  });
+  const tok = getConfig('gToken');
+  if (tok) { gAccessToken = tok; gapi.client.setToken({access_token: tok}); gIsSignedIn = true; updateDpStatus(); }
+}
+
+function saveClientId() {
+  const id = document.getElementById('dp-client-id').value.trim();
+  if (!id) return;
+  setConfig('clientId', id);
+  tryInitAuth();
+  showToast('Client ID saved — click Sign in with Google', 'ok');
+}
+
+function signInToGoogle() {
+  if (!gTokenClient) {
+    if (!getConfig('clientId')) {
+      showToast('Open Setup Instructions and enter your Client ID first', 'hk');
+      document.querySelector('.drive-setup-details').open = true;
+    } else {
+      showToast('Waiting for Google libraries to load…', 'hk');
+    }
+    return;
+  }
+  gTokenClient.requestAccessToken({prompt: gAccessToken ? '' : 'consent'});
+}
+
+function onTokenResponse(resp) {
+  if (resp.error) { showToast('Google sign-in failed: ' + resp.error, 'hk'); return; }
+  gAccessToken = resp.access_token;
+  gIsSignedIn  = true;
+  setConfig('gToken', gAccessToken);
+  gapi.client.setToken({access_token: gAccessToken});
+  updateDpStatus();
+  showToast('Signed in to Google', 'ok');
+  if (gSpreadsheetId) {
+    document.getElementById('dp-sheet-url').value = gSpreadsheetId;
+    showConnectedPill();
+    if (getConfig('autoSync')) syncFromSheets();
+  }
+}
+
+function signOutGoogle() {
+  google.accounts.oauth2.revoke(gAccessToken, () => {});
+  gAccessToken = null; gIsSignedIn = false;
+  setConfig('gToken', null);
+  updateDpStatus();
+  showToast('Signed out', 'hk');
+  document.getElementById('dp-signin').style.display = '';
+  document.getElementById('dp-signout').style.display = 'none';
+  document.getElementById('dp-connected-pill').style.display = 'none';
+}
+
+function connectFromInput() {
+  let val = document.getElementById('dp-sheet-url').value.trim();
+  if (!val) return;
+  // Extract ID from URL if a full URL was pasted
+  const m = val.match(/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) val = m[1];
+  gSpreadsheetId = val;
+  setConfig('sheetId', val);
+  showConnectedPill();
+  showToast('Spreadsheet connected', 'ok');
+}
+
+async function createNewSpreadsheet() {
+  if (!gIsSignedIn) { signInToGoogle(); return; }
+  setSaveChip('syncing', '↑ Creating…');
+  try {
+    const resp = await gapi.client.sheets.spreadsheets.create({
+      properties: { title: 'Investor Trip Book · HK & Canton Fair 2026' },
+      sheets: SHEET_NAMES.map(t => ({ properties: { title: t } }))
+    });
+    gSpreadsheetId = resp.result.spreadsheetId;
+    setConfig('sheetId', gSpreadsheetId);
+    document.getElementById('dp-sheet-url').value = gSpreadsheetId;
+    showConnectedPill(resp.result.spreadsheetUrl);
+    await syncToSheets();
+  } catch(e) {
+    setSaveChip('error', '● Error');
+    showToast('Create failed: ' + (e.result?.error?.message || e.message || 'unknown'), 'hk');
+  }
+}
+
+function showConnectedPill(url) {
+  const pill = document.getElementById('dp-connected-pill');
+  const link = document.getElementById('dp-sheet-link');
+  if (url) link.href = url;
+  else if (gSpreadsheetId) link.href = `https://docs.google.com/spreadsheets/d/${gSpreadsheetId}/edit`;
+  pill.style.display = 'flex';
+}
+
+async function syncToSheets() {
+  if (!gIsSignedIn)    { showToast('Sign in to Google first', 'hk'); return; }
+  if (!gSpreadsheetId) { showToast('Connect a spreadsheet first', 'hk'); return; }
+  setSaveChip('syncing', '↑ Syncing…');
+  updateDpStatus('syncing');
+  try {
+    await ensureSheets();
+    const payload = buildPayload();
+    await gapi.client.sheets.spreadsheets.values.batchClear({
+      spreadsheetId: gSpreadsheetId,
+      resource: { ranges: SHEET_NAMES.map(s => s + '!A1:Z2000') }
+    });
+    await gapi.client.sheets.spreadsheets.values.batchUpdate({
+      spreadsheetId: gSpreadsheetId,
+      resource: { valueInputOption: 'USER_ENTERED', data: payload }
+    });
+    const now = new Date().toLocaleString('en-GB');
+    setConfig('lastSync', now);
+    document.getElementById('dp-last-sync').textContent = 'Last synced: ' + now;
+    setSaveChip('synced', '☁ Synced');
+    updateDpStatus('connected');
+    showToast('Synced to Google Drive ✓', 'ok');
+  } catch(e) {
+    setSaveChip('error', '● Error');
+    updateDpStatus('error');
+    showToast('Sync failed: ' + (e.result?.error?.message || e.message || 'check console'), 'hk');
+    console.error(e);
+  }
+}
+
+async function syncFromSheets() {
+  if (!gIsSignedIn || !gSpreadsheetId) return;
+  setSaveChip('syncing', '↓ Loading…');
+  updateDpStatus('syncing');
+  try {
+    const resp = await gapi.client.sheets.spreadsheets.values.batchGet({
+      spreadsheetId: gSpreadsheetId,
+      ranges: SHEET_NAMES.map(s => s + '!A1:Z5000')
+    });
+    parsePayload(resp.result.valueRanges);
+    renderAll();
+    const now = new Date().toLocaleString('en-GB');
+    setConfig('lastSync', now);
+    document.getElementById('dp-last-sync').textContent = 'Last synced: ' + now;
+    setSaveChip('synced', '☁ Synced');
+    updateDpStatus('connected');
+    showToast('Loaded from Google Drive ✓', 'ok');
+  } catch(e) {
+    setSaveChip('error', '● Error');
+    updateDpStatus('error');
+    showToast('Load failed: ' + (e.result?.error?.message || e.message), 'hk');
+  }
+}
+
+async function ensureSheets() {
+  const meta = await gapi.client.sheets.spreadsheets.get({ spreadsheetId: gSpreadsheetId });
+  const existing = (meta.result.sheets || []).map(s => s.properties.title);
+  const missing  = SHEET_NAMES.filter(n => !existing.includes(n));
+  if (!missing.length) return;
+  await gapi.client.sheets.spreadsheets.batchUpdate({
+    spreadsheetId: gSpreadsheetId,
+    resource: { requests: missing.map(t => ({ addSheet: { properties: { title: t } } })) }
+  });
+}
+
+function buildPayload() {
+  const evRow = e => [
+    e.id, e.date, e.time, e.dur||'', e.color||'', e.status||'',
+    e.title||'', e.co||'', e.venue||'', e.att||'', e.notes||'',
+    (e.tags||[]).join(', '), e.investorTier||'', e.budget||'',
+    e.outcome||'', e.commitment||''
+  ];
+  const evHdr = ['ID','Date','Time','Duration','Color','Status','Title','Company','Venue','Attendees','Notes','Tags','InvestorTier','Budget','Outcome','Commitment'];
+
+  const actHdr = ['ID','Task','Owner','Due','Phase','Status'];
+  const conHdr = ['ID','Name','Role','Company','Phase','Tags','Email','Phone','Notes','InvestorType','DealValue','MeetingObjective'];
+  const logHdr = ['ID','Type','Title','Details','Status'];
+  const ovData = [
+    ['Metric','Value','Updated'],
+    ['HK Meetings', HK_EVENTS.length, new Date().toISOString()],
+    ['CF Events',   CF_EVENTS.length, ''],
+    ['Confirmed',   [...HK_EVENTS,...CF_EVENTS].filter(e=>e.status==='confirmed').length, ''],
+    ['Open Actions',ACTIONS.filter(a=>!a.done).length, ''],
+    ['Contacts',    CONTACTS.length, ''],
+    ['Lead Investors', CONTACTS.filter(c=>c.investorType==='lead_investor').length, ''],
+    ['Meetings w/ Budget', [...HK_EVENTS,...CF_EVENTS].filter(e=>e.budget).length, ''],
+    ['Meetings w/ Outcome', [...HK_EVENTS,...CF_EVENTS].filter(e=>e.outcome).length, ''],
+  ];
+  const notesData = [
+    ['Phase','InvestorTier','Title','Company','Budget','Outcome','Commitment','Date'],
+    ...[...HK_EVENTS,...CF_EVENTS]
+      .filter(e => e.investorTier || e.outcome || e.commitment || e.budget)
+      .map(e => [
+        HK_EVENTS.includes(e)?'Hong Kong':'Canton Fair',
+        e.investorTier||'', e.title||'', e.co||'',
+        e.budget||'', e.outcome||'', e.commitment||'', e.date||''
+      ])
+  ];
+  return [
+    { range:'Overview!A1',   values: ovData },
+    { range:'HK_Events!A1',  values: [evHdr, ...HK_EVENTS.map(evRow)] },
+    { range:'CF_Events!A1',  values: [evHdr, ...CF_EVENTS.map(evRow)] },
+    { range:'Actions!A1',    values: [actHdr, ...ACTIONS.map(a=>[a.id,a.text,a.owner,a.due,a.phase,a.done?'Done':'Open'])] },
+    { range:'Contacts!A1',   values: [conHdr, ...CONTACTS.map(c=>[c.id,c.name,c.role,c.co,c.phase,(c.tags||[]).join(', '),c.email||'',c.phone||'',c.notes||'',c.investorType||'',c.dealValue||'',c.meetingObjective||''])] },
+    { range:'Logistics!A1',  values: [logHdr, ...LOGISTICS.flights.map(l=>['Flight',l.id,l.title,l.detail,l.stat]), ...LOGISTICS.hotels.map(l=>['Hotel',l.id,l.title,l.detail,l.stat]), ...LOGISTICS.ground.map(l=>['Transfer',l.id,l.title,l.detail,l.stat])] },
+    { range:'Investor_Notes!A1', values: notesData },
+  ];
+}
+
+function parsePayload(ranges) {
+  const byName = {};
+  ranges.forEach((r, i) => { byName[SHEET_NAMES[i]] = r.values || []; });
+
+  const evFromRow = r => ({
+    id: parseInt(r[0])||nextId++, date:r[1]||'', time:r[2]||'', dur:r[3]||'',
+    color:r[4]||'gcal-blue', status:r[5]||'pending', title:r[6]||'',
+    co:r[7]||'', venue:r[8]||'', att:r[9]||'', notes:r[10]||'',
+    tags:(r[11]||'').split(',').map(t=>t.trim()).filter(Boolean),
+    investorTier:r[12]||'', budget:r[13]||'', outcome:r[14]||'', commitment:r[15]||''
+  });
+
+  const hkRows = (byName.HK_Events||[]).slice(1).filter(r=>r[0]);
+  const cfRows = (byName.CF_Events||[]).slice(1).filter(r=>r[0]);
+  if (hkRows.length) HK_EVENTS = hkRows.map(evFromRow);
+  if (cfRows.length) CF_EVENTS = cfRows.map(evFromRow);
+
+  const actRows = (byName.Actions||[]).slice(1).filter(r=>r[0]);
+  if (actRows.length) ACTIONS = actRows.map(r=>({
+    id:parseInt(r[0])||Date.now(), text:r[1]||'', owner:r[2]||'Delegate',
+    due:r[3]||'TBD', phase:r[4]||'hk', done:r[5]==='Done'
+  }));
+
+  const conRows = (byName.Contacts||[]).slice(1).filter(r=>r[1]);
+  if (conRows.length) CONTACTS = conRows.map(r=>({
+    id:parseInt(r[0])||nextId++, name:r[1]||'', role:r[2]||'', co:r[3]||'',
+    phase:r[4]||'hk', tags:(r[5]||'').split(',').map(t=>t.trim()).filter(Boolean),
+    email:r[6]||'', phone:r[7]||'', notes:r[8]||'',
+    investorType:r[9]||'', dealValue:r[10]||'', meetingObjective:r[11]||'',
+    bg:'#0B2740'
+  }));
+
+  const logRows = (byName.Logistics||[]).slice(1).filter(r=>r[2]);
+  if (logRows.length) {
+    LOGISTICS.flights=[]; LOGISTICS.hotels=[]; LOGISTICS.ground=[];
+    logRows.forEach(r=>{
+      const item={ico:r[0]==='Flight'?'✈️':r[0]==='Hotel'?'🏨':'🚗',
+        type:r[0]==='Flight'?'fl':r[0]==='Hotel'?'ht':'tr',
+        id:parseInt(r[1])||nextId++, title:r[2]||'', detail:r[3]||'', stat:r[4]||'pend'};
+      if(item.type==='fl') LOGISTICS.flights.push(item);
+      else if(item.type==='ht') LOGISTICS.hotels.push(item);
+      else LOGISTICS.ground.push(item);
+    });
+  }
+
+  const allIds=[...HK_EVENTS,...CF_EVENTS,...ACTIONS,...CONTACTS,
+    ...LOGISTICS.flights,...LOGISTICS.hotels,...LOGISTICS.ground].map(x=>x.id).filter(n=>Number.isFinite(n));
+  if(allIds.length) nextId = Math.max(...allIds, nextId) + 1;
+}
+
+function updateDpStatus(state) {
+  const dot  = document.getElementById('dp-dot');
+  const txt  = document.getElementById('dp-status');
+  if (!dot || !txt) return;
+  dot.className = 'drive-status-dot';
+  if (state === 'syncing') {
+    dot.classList.add('syncing');
+    txt.textContent = 'Syncing with Google Drive…';
+  } else if (state === 'error') {
+    dot.classList.add('error');
+    txt.textContent = 'Sync error — check console';
+  } else if (gIsSignedIn && gSpreadsheetId) {
+    dot.classList.add('connected');
+    txt.textContent = 'Connected · ' + (getConfig('lastSync') ? 'Last synced: ' + getConfig('lastSync') : 'Ready to sync');
+  } else if (gIsSignedIn) {
+    dot.classList.add('connected');
+    txt.textContent = 'Signed in — connect a spreadsheet';
+  } else {
+    txt.textContent = 'Not connected · changes saved locally';
+  }
+  // Update sign-in/out button visibility
+  const si = document.getElementById('dp-signin');
+  const so = document.getElementById('dp-signout');
+  if (si) si.style.display = gIsSignedIn ? 'none' : '';
+  if (so) so.style.display = gIsSignedIn ? '' : 'none';
+}
+
+function setAutoSync(val) {
+  setConfig('autoSync', val);
+  showToast(val ? 'Auto-sync enabled' : 'Auto-sync disabled', 'hk');
+}
+
+function openDrivePanel() {
+  document.getElementById('drive-panel').classList.add('open');
+  document.getElementById('drive-overlay').classList.add('open');
+  updateDpStatus();
+  const lastSync = getConfig('lastSync');
+  if (lastSync) document.getElementById('dp-last-sync').textContent = 'Last synced: ' + lastSync;
+  const sheetId = getConfig('sheetId');
+  if (sheetId) {
+    document.getElementById('dp-sheet-url').value = sheetId;
+    showConnectedPill();
+  }
+  const clientId = getConfig('clientId');
+  if (clientId) document.getElementById('dp-client-id').value = clientId;
+  const autoSync = getConfig('autoSync');
+  if (autoSync) document.getElementById('dp-autosync').checked = true;
+}
+
+function closeDrivePanel() {
+  document.getElementById('drive-panel').classList.remove('open');
+  document.getElementById('drive-overlay').classList.remove('open');
 }
 
 /* ═══════════════════════════════════════════════
@@ -1961,9 +2783,17 @@ function showToast(msg, type) {
 /* ═══════════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════════ */
-renderAll();
-document.getElementById('ts').textContent =
-  new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+(function init() {
+  const restored = loadFromLocal();
+  renderAll();
+  document.getElementById('ts').textContent =
+    new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+  setSaveChip(restored ? 'saved' : 'local', restored ? '● Restored' : '● Local');
+  setTimeout(() => setSaveChip('local', '● Local'), 2500);
+  // Restore auto-sync checkbox state
+  const asEl = document.getElementById('dp-autosync');
+  if (asEl && getConfig('autoSync')) asEl.checked = true;
+})();
 </script>
 
 <!-- ═══════════ LOGISTICS EDIT MODAL ═══════════ -->
