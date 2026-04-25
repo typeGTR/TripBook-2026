@@ -638,8 +638,6 @@ html, body {
 }
 body.modal-open {
   overflow: hidden;
-  position: fixed;
-  width: 100%;
 }
 .moverlay {
   /* Use both fixed and -webkit-fill-available to handle
@@ -730,12 +728,15 @@ body.modal-open {
 ═══════════════════════════════════════════════ */
 .moverlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0; left: 0;
+  width: 100%; height: 100dvh;
   background: rgba(0,0,0,.5);
   z-index: 9999;
   display: none;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
 }
 .moverlay.open {
@@ -743,24 +744,20 @@ body.modal-open {
 }
 .mdrawer {
   background: var(--surface);
-  border-radius: 20px 20px 0 0;
+  border-radius: 16px;
   width: 100%;
   max-width: 580px;
-  padding: 22px 18px env(safe-area-inset-bottom, 36px);
-  padding-top: 22px;
-  padding-bottom: max(36px, env(safe-area-inset-bottom, 36px));
-  max-height: 85vh;
+  padding: 22px 18px;
+  max-height: 88vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  animation: slideUp .22s ease;
+  animation: fadeScaleIn .2s ease;
   position: relative;
-  will-change: transform;
-  transform: translateZ(0);
 }
-@keyframes slideUp {
-  from { transform: translateY(60px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+@keyframes fadeScaleIn {
+  from { transform: scale(.96) translateY(8px); opacity: 0; }
+  to   { transform: scale(1)   translateY(0);   opacity: 1; }
 }
 .mdhandle { width: 34px; height: 3px; border-radius: 2px; background: rgba(0,0,0,.12); margin: 0 auto 18px; }
 .mdtitle { font-family: var(--display); font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
@@ -1361,7 +1358,6 @@ body.modal-open {
 <!-- ═══════════ EDIT MODAL ═══════════ -->
 <div class="moverlay" id="moverlay" onclick="handleMOverlay(event)">
   <div class="mdrawer">
-    <div class="mdhandle"></div>
     <button class="mdclose" onclick="closeModal()">✕</button>
     <div class="mdtitle" id="md-title">Edit Event</div>
     <div class="mdsub" id="md-sub"></div>
@@ -2185,23 +2181,42 @@ function closeModal() { document.getElementById('moverlay').classList.remove('op
 /* ── VIEWPORT SCROLL FIX FOR GOOGLE SITES IFRAME ──
    When inside an iframe the viewport may be offset. This ensures
    the drawer always appears anchored correctly to the visible window. */
+let _savedScrollY = 0;
 function fixModalViewport(overlayId) {
   const overlay = document.getElementById(overlayId);
   if (!overlay) return;
-  // Force repaint at true viewport top to avoid iframe scroll offset
-  const drawer = overlay.querySelector('.mdrawer');
-  if (drawer) {
-    drawer.scrollTop = 0;
-  }
-  // Prevent body scroll while modal is open
+  // Use Visual Viewport API to pin overlay to the visible area.
+  // Inside a Sites iframe the layout viewport is the full iframe height,
+  // but visualViewport reflects the actual browser window.
+  const vv  = window.visualViewport;
+  const top  = vv ? vv.pageTop  : (window.scrollY || 0);
+  const left = vv ? vv.pageLeft : 0;
+  const w    = vv ? vv.width    : window.innerWidth;
+  const h    = vv ? vv.height   : window.innerHeight;
+  overlay.style.position = 'absolute';
+  overlay.style.top    = top  + 'px';
+  overlay.style.left   = left + 'px';
+  overlay.style.width  = w    + 'px';
+  overlay.style.height = h    + 'px';
+  const drawer = overlay.querySelector('.mdrawer, .mcard');
+  if (drawer) drawer.scrollTop = 0;
+  _savedScrollY = window.scrollY || 0;
   document.body.style.overflow = 'hidden';
   document.documentElement.style.overflow = 'hidden';
   document.body.classList.add('modal-open');
 }
 function releaseModalViewport() {
+  document.querySelectorAll('.moverlay').forEach(function(ov) {
+    ov.style.position = '';
+    ov.style.top = '';
+    ov.style.left = '';
+    ov.style.width = '';
+    ov.style.height = '';
+  });
   document.body.style.overflow = '';
   document.documentElement.style.overflow = '';
   document.body.classList.remove('modal-open');
+  if (_savedScrollY) window.scrollTo(0, _savedScrollY);
 }
 function handleMOverlay(e) { if (e.target === document.getElementById('moverlay')) closeModal(); }
 
@@ -2650,7 +2665,6 @@ function showToast(msg, type) {
 <!-- ═══════════ LOGISTICS EDIT MODAL ═══════════ -->
 <div class="moverlay" id="log-moverlay" onclick="handleLogMOverlay(event)">
   <div class="mdrawer">
-    <div class="mdhandle"></div>
     <button class="mdclose" onclick="closeLogModal()">&#10005;</button>
     <div class="mdtitle" id="lmd-title">Edit Entry</div>
     <div class="mdsub"   id="lmd-sub"></div>
@@ -2675,7 +2689,6 @@ function handleLogMOverlay(e) {
 <!-- ═══════════ CONTACTS EDIT MODAL ═══════════ -->
 <div class="moverlay" id="contact-moverlay" onclick="handleContactMOverlay(event)">
   <div class="mdrawer">
-    <div class="mdhandle"></div>
     <button class="mdclose" onclick="closeContactModal()">&#10005;</button>
     <div class="mdtitle" id="cmd-title">Edit Contact</div>
     <div class="mdsub"   id="cmd-sub"></div>
