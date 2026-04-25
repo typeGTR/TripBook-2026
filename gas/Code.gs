@@ -314,13 +314,21 @@ function readEvents_(ss, sheetName) {
   if (!sh) return [];
   var data = sh.getDataRange().getValues();
   if (data.length < 2) return [];
+  var tz = Session.getScriptTimeZone();
   return data.slice(1)
     .filter(function(r){ return r[0] !== '' && r[0] !== null; })
     .map(function(r) {
+      var rawDate = r[1], rawTime = r[2];
+      var dateStr = (rawDate instanceof Date)
+        ? Utilities.formatDate(rawDate, tz, 'yyyy-MM-dd')
+        : String(rawDate || '');
+      var timeStr = (rawTime instanceof Date)
+        ? Utilities.formatDate(rawTime, tz, 'HH:mm')
+        : String(rawTime || '');
       return {
         id:           Number(r[0]) || 0,
-        date:         String(r[1]  || ''),
-        time:         String(r[2]  || ''),
+        date:         dateStr,
+        time:         timeStr,
         dur:          String(r[3]  || ''),
         color:        String(r[4]  || 'gcal-blue'),
         status:       String(r[5]  || 'pending'),
@@ -347,7 +355,7 @@ function readActions_(ss) {
     .filter(function(r){ return r[0] !== ''; })
     .map(function(r) {
       return {
-        id:       Number(r[0]) || Date.now(),
+        id:       Number(r[0]) || 0,
         text:     String(r[1] || ''),
         owner:    String(r[2] || 'Delegate'),
         due:      String(r[3] || 'TBD'),

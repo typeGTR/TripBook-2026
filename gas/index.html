@@ -1208,6 +1208,15 @@ body.modal-open {
     </div>
   </div>
 
+  <button onclick="openAdd('hk')"
+    style="display:flex;align-items:center;justify-content:center;gap:8px;
+           width:100%;padding:15px;margin-bottom:14px;
+           background:var(--hk);color:#fff;border:none;border-radius:var(--r);
+           font-family:var(--body);font-size:15px;font-weight:600;cursor:pointer;
+           box-shadow:var(--sh-lg)">
+    <span style="font-size:20px;line-height:1">+</span> Add New Meeting
+  </button>
+
   <div class="sh">
     <h2>HK Agenda by Day</h2>
     <a class="sh-link hk" onclick="openAdd('hk')">+ Add Meeting</a>
@@ -1232,6 +1241,15 @@ body.modal-open {
       <span class="pb-pill">Supplier Shortlist</span>
     </div>
   </div>
+
+  <button onclick="openAdd('cf')"
+    style="display:flex;align-items:center;justify-content:center;gap:8px;
+           width:100%;padding:15px;margin-bottom:14px;
+           background:var(--cf);color:#fff;border:none;border-radius:var(--r);
+           font-family:var(--body);font-size:15px;font-weight:600;cursor:pointer;
+           box-shadow:var(--sh-lg)">
+    <span style="font-size:20px;line-height:1">+</span> Add New Exhibitor / Session
+  </button>
 
   <div class="sh"><h2>Sourcing Priorities</h2><a class="sh-link cf" onclick="openAdd('cf')">+ Add Exhibitor</a></div>
   <div id="cf-halls"></div>
