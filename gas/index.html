@@ -2274,7 +2274,7 @@ function quickSave() {
   };
   const action = g('qaction').value.trim();
   if (action) {
-    ACTIONS.push({id:Date.now(),text:action,owner:'Delegate',due:'TBD',done:false,phase});
+    ACTIONS.push({id:Math.max(0,...ACTIONS.map(a=>+a.id||0))+1,text:action,owner:'Delegate',due:'TBD',done:false,phase});
   }
   if (phase === 'hk') HK_EVENTS.push(ev);
   else CF_EVENTS.push(ev);
@@ -2303,7 +2303,7 @@ function promptAddAction() {
   const owner = prompt('Owner (name or role):', 'Delegate') || 'Delegate';
   const due = prompt('Due date:', 'TBD') || 'TBD';
   const phase = confirm('Hong Kong phase? (Cancel = Canton Fair)') ? 'hk' : 'cf';
-  ACTIONS.push({id:Date.now(),text,owner,due,done:false,phase});
+  ACTIONS.push({id:Math.max(0,...ACTIONS.map(a=>+a.id||0))+1,text,owner,due,done:false,phase});
   renderActions(); updateKPIs();
   showToast('Action added', phase);
 }
