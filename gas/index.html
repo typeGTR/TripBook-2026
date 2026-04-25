@@ -2594,6 +2594,10 @@ function openDrivePanel() {
   if (asEl && autoSync) asEl.checked = true;
   if (GAS_MODE) loadSheetInfo();
 }
+function closeDrivePanel() {
+  document.getElementById('drive-panel').classList.remove('open');
+  document.getElementById('drive-overlay').classList.remove('open');
+}
 
 /* ═══════════════════════════════════════════════
    TOAST
