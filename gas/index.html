@@ -1531,7 +1531,7 @@ const LOGISTICS = {
   ],
 };
 
-let nextId = 400;
+let nextId = 1; // recomputed after data is loaded
 let modalPhase = 'hk';
 let modalEditId = null;
 
@@ -1780,7 +1780,7 @@ function saveContactModal() {
     const idx = CONTACTS.findIndex(c => c.id === contactModalId);
     if (idx >= 0) CONTACTS[idx] = { id: contactModalId, name, role, co, email, phone, phase, bg, tags, notes, investorType, dealValue, meetingObjective };
   } else {
-    CONTACTS.push({ id: nextId++, name, role, co, email, phone, phase, bg, tags, notes, investorType, dealValue, meetingObjective });
+    CONTACTS.push({ id: Math.max(0,...CONTACTS.map(c=>+c.id||0))+1, name, role, co, email, phone, phase, bg, tags, notes, investorType, dealValue, meetingObjective });
   }
 
   renderContacts();
@@ -1970,7 +1970,7 @@ function saveLogModal() {
     }
     arrMap[type].push({ id: logModalId, ico: LOG_TYPE_ICONS[type], type, title, detail, stat });
   } else {
-    const newId = nextId++;
+    const newId = Math.max(0,...LOGISTICS.flights.map(l=>+l.id||0),...LOGISTICS.hotels.map(l=>+l.id||0),...LOGISTICS.ground.map(l=>+l.id||0))+1;
     arrMap[type].push({ id: newId, ico: LOG_TYPE_ICONS[type], type, title, detail, stat });
   }
 
@@ -2122,7 +2122,7 @@ function openEdit(id, phase) {
 function saveModal() {
   const g = id => document.getElementById(id);
   const ev = {
-    id: modalEditId || nextId++,
+    id: modalEditId || Math.max(0,...HK_EVENTS.map(e=>+e.id||0),...CF_EVENTS.map(e=>+e.id||0))+1,
     date: g('mf-date').value,
     time: g('mf-time').value,
     dur: g('mf-dur').value,
@@ -2214,7 +2214,7 @@ function quickSave() {
   const title = g('qtitle').value.trim();
   if (!title) { showToast('Please enter a title', 'hk'); return; }
   const ev = {
-    id: nextId++,
+    id: Math.max(0,...HK_EVENTS.map(e=>+e.id||0),...CF_EVENTS.map(e=>+e.id||0))+1,
     date: g('qdate').value || '2026-04-28',
     time: g('qtime').value || '09:00',
     dur: g('qdur').value || '1h',
