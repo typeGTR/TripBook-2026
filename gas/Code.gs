@@ -82,6 +82,10 @@ function getOrMake_(ss, name) {
   return ss.getSheetByName(name) || ss.insertSheet(name);
 }
 
+function clearBandings_(sh) {
+  sh.getBandings().forEach(function(b) { b.remove(); });
+}
+
 // ── Public API (called from client via google.script.run) ────
 
 /** Returns spreadsheet metadata so the client can show a link. */
@@ -157,6 +161,7 @@ function writeEvents_(ss, sheetName, events) {
     formatHeader_(sh, EV_HDR_.length);
     // Alternate row banding
     if (rows.length > 2) {
+      clearBandings_(sh);
       sh.getRange(2, 1, rows.length-1, EV_HDR_.length)
         .applyRowBanding(SpreadsheetApp.BandingTheme.LIGHT_GREY);
     }
@@ -294,6 +299,7 @@ function writeOverview_(ss, d) {
     .setFontWeight('bold');
 
   // Data rows alternate
+  clearBandings_(sh);
   sh.getRange(5,1,12,3).applyRowBanding(SpreadsheetApp.BandingTheme.LIGHT_GREY);
 
   sh.setColumnWidth(1, 220);
