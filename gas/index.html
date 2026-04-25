@@ -1594,14 +1594,44 @@ function goView(id) {
 }
 
 /* ═══════════════════════════════════════════════
+   DATE / TIME SANITIZER
+   Cleans events whose date/time came back from
+   Google Sheets as full Date strings instead of
+   'yyyy-MM-dd' / 'HH:mm'.
+═══════════════════════════════════════════════ */
+function sanitizeEv(ev) {
+  var t = String(ev.time || '');
+  var d = String(ev.date || '');
+  if (t && !/^\d{1,2}:\d{2}$/.test(t)) {
+    var tm = t.match(/(\d{1,2}):(\d{2})(?::\d{2})?/);
+    if (tm) ev.time = tm[1].padStart(2,'0') + ':' + tm[2];
+  }
+  if (d && !/^\d{4}-\d{2}-\d{2}$/.test(d)) {
+    var dt = new Date(d);
+    if (!isNaN(dt.getTime())) {
+      ev.date = dt.getFullYear() + '-'
+        + String(dt.getMonth()+1).padStart(2,'0') + '-'
+        + String(dt.getDate()).padStart(2,'0');
+    }
+  }
+  return ev;
+}
+function sanitizeEvents() {
+  HK_EVENTS = HK_EVENTS.map(sanitizeEv);
+  CF_EVENTS = CF_EVENTS.map(sanitizeEv);
+}
+
+/* ═══════════════════════════════════════════════
    RENDER HELPERS
 ═══════════════════════════════════════════════ */
 function fmtDate(d) {
   const dt = new Date(d + 'T00:00:00');
+  if (isNaN(dt)) return d || '—';
   return dt.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 }
 function fmtDay(d) {
   const dt = new Date(d + 'T00:00:00');
+  if (isNaN(dt)) return { n: '?', mo: '???', dow: '???' };
   return { n: dt.getDate(), mo: dt.toLocaleDateString('en-GB',{month:'short'}), dow: dt.toLocaleDateString('en-GB',{weekday:'short'}) };
 }
 
@@ -2098,10 +2128,12 @@ const COL_OPTS = [
 
 function buildModalForm(ev) {
   const e = ev || {};
+  const defaultDate = modalPhase === 'cf' ? '2026-05-01' : '2026-04-27';
+  const defaultTime = '09:00';
   const colOpts = COL_OPTS.map(([v,l]) => `<option value="${v}" ${e.color===v?'selected':''}>${l}</option>`).join('');
   return `
-    <div class="fgroup"><label>Date</label><input type="date" id="mf-date" value="${e.date||''}" min="2026-04-27" max="2026-05-07"></div>
-    <div class="fgroup"><label>Time</label><input type="time" id="mf-time" value="${e.time||''}"></div>
+    <div class="fgroup"><label>Date</label><input type="date" id="mf-date" value="${e.date||defaultDate}" min="2026-04-27" max="2026-05-07"></div>
+    <div class="fgroup"><label>Time</label><input type="time" id="mf-time" value="${e.time||defaultTime}"></div>
     <div class="fgroup"><label>Duration</label><input type="text" id="mf-dur" value="${e.dur||''}" placeholder="e.g. 1h 30m"></div>
     <div class="fgroup"><label>Calendar Color</label><select id="mf-col">${colOpts}</select></div>
     <div class="fgroup"><label>Status</label>
@@ -2473,6 +2505,7 @@ function loadFromLocal() {
     const d = JSON.parse(raw);
     if (d.HK_EVENTS)   HK_EVENTS = d.HK_EVENTS;
     if (d.CF_EVENTS)   CF_EVENTS = d.CF_EVENTS;
+    sanitizeEvents();
     if (d.ACTIONS)     ACTIONS   = d.ACTIONS;
     if (d.CONTACTS)    CONTACTS  = d.CONTACTS;
     if (d.LOGISTICS) {
@@ -2593,6 +2626,7 @@ function syncFromSheets() {
       }
       if (result.HK_EVENTS  && result.HK_EVENTS.length)  HK_EVENTS = result.HK_EVENTS;
       if (result.CF_EVENTS  && result.CF_EVENTS.length)  CF_EVENTS = result.CF_EVENTS;
+      sanitizeEvents();
       if (result.ACTIONS    && result.ACTIONS.length)    ACTIONS   = result.ACTIONS.map(function(a,i){return Object.assign({},a,{id:i+1});});
       if (result.CONTACTS   && result.CONTACTS.length)   CONTACTS  = result.CONTACTS;
       if (result.LOGISTICS) {
