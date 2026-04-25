@@ -993,6 +993,32 @@ body.modal-open {
 }
 .drive-excel-row h4 { font-size: 11px; font-weight: 600; color: #2e7d32; margin-bottom: 4px; }
 .drive-excel-row p { font-size: 10px; color: #33691e; line-height: 1.5; }
+/* ── Delete confirm popup ── */
+#del-backdrop {
+  display: none; position: fixed; inset: 0; z-index: 10000;
+  background: rgba(0,0,0,.4);
+}
+#del-backdrop.show { display: block; }
+#del-popup {
+  display: none; position: fixed;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 10001;
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 24px 22px 18px;
+  width: 270px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.22);
+  text-align: center;
+}
+#del-popup.show { display: block; }
+#del-popup .dp-title {
+  font-size: 14px; font-weight: 700; color: var(--ink); margin: 0 0 5px;
+}
+#del-popup .dp-sub {
+  font-size: 12px; color: var(--ink-3); margin: 0 0 20px;
+}
+#del-popup .dp-btns { display: flex; gap: 10px; }
+#del-popup .dp-btns button { flex: 1; }
 /* ── Safari/iOS open-in-browser banner ── */
 #safari-banner {
   display: none;
@@ -2164,16 +2190,17 @@ function delEv(id, phase) {
 var _delCb = null;
 function confirmDelete(cb) {
   _delCb = cb;
-  var ov = document.getElementById('del-confirm-overlay');
-  ov.classList.add('open');
-  fixModalViewport('del-confirm-overlay');
+  document.getElementById('del-backdrop').classList.add('show');
+  document.getElementById('del-popup').classList.add('show');
 }
 function _delConfirm() {
-  document.getElementById('del-confirm-overlay').classList.remove('open');
+  document.getElementById('del-backdrop').classList.remove('show');
+  document.getElementById('del-popup').classList.remove('show');
   if (_delCb) { var cb = _delCb; _delCb = null; cb(); }
 }
 function _delCancel() {
-  document.getElementById('del-confirm-overlay').classList.remove('open');
+  document.getElementById('del-backdrop').classList.remove('show');
+  document.getElementById('del-popup').classList.remove('show');
   _delCb = null;
 }
 function closeModal() { document.getElementById('moverlay').classList.remove('open'); releaseModalViewport(); }
@@ -2709,13 +2736,16 @@ function handleContactMOverlay(e) {
 }
 </script>
 
-<div class="moverlay" id="del-confirm-overlay">
-  <div class="mcard" style="max-width:320px;padding:28px 24px;text-align:center">
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.6;color:var(--ink)">Confirm to delete — this cannot be undone?</p>
-    <div style="display:flex;gap:12px;justify-content:center">
-      <button class="fbtn ghost" onclick="_delCancel()">Cancel</button>
-      <button class="fbtn" style="color:#c62828;border:.5px solid rgba(198,40,40,.3);background:transparent;font-family:var(--body);font-size:13px;padding:10px 20px;border-radius:var(--r-sm);cursor:pointer" onclick="_delConfirm()">Delete</button>
-    </div>
+<div id="del-backdrop" onclick="_delCancel()"></div>
+<div id="del-popup">
+  <p class="dp-title">Confirm deletion</p>
+  <p class="dp-sub">This cannot be undone.</p>
+  <div class="dp-btns">
+    <button class="fbtn ghost" onclick="_delCancel()">Cancel</button>
+    <button class="fbtn" onclick="_delConfirm()"
+      style="color:#c62828;border:.5px solid rgba(198,40,40,.3);background:transparent;
+             font-family:var(--body);font-size:13px;padding:10px 16px;
+             border-radius:var(--r-sm);cursor:pointer">Delete</button>
   </div>
 </div>
 
