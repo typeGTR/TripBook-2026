@@ -1784,11 +1784,12 @@ function saveContactModal() {
 }
 
 function deleteContact(id) {
-  if (!confirm('Delete this contact? This cannot be undone.')) return;
-  CONTACTS = CONTACTS.filter(c => c.id !== id);
-  renderContacts();
-  closeContactModal();
-  showToast('Contact deleted', 'hk');
+  confirmDelete(function(){
+    CONTACTS = CONTACTS.filter(c => c.id !== id);
+    renderContacts();
+    closeContactModal();
+    showToast('Contact deleted', 'hk');
+  });
 }
 
 function closeContactModal() {
@@ -1876,12 +1877,13 @@ function findLogItem(id) {
 }
 
 function deleteLogItem(id) {
-  if (!confirm('Delete this entry? This cannot be undone.')) return;
-  LOGISTICS.flights = LOGISTICS.flights.filter(l => l.id !== id);
-  LOGISTICS.hotels  = LOGISTICS.hotels.filter(l => l.id !== id);
-  LOGISTICS.ground  = LOGISTICS.ground.filter(l => l.id !== id);
-  renderLogistics();
-  showToast('Entry deleted', 'hk');
+  confirmDelete(function(){
+    LOGISTICS.flights = LOGISTICS.flights.filter(l => l.id !== id);
+    LOGISTICS.hotels  = LOGISTICS.hotels.filter(l => l.id !== id);
+    LOGISTICS.ground  = LOGISTICS.ground.filter(l => l.id !== id);
+    renderLogistics();
+    showToast('Entry deleted', 'hk');
+  });
 }
 
 function openLogAdd(type) {
@@ -2147,9 +2149,7 @@ function saveModal() {
 
 function deleteFromModal() {
   if (!modalEditId) return;
-  if (!confirm('Delete this event? This cannot be undone.')) return;
-  delEv(modalEditId, modalPhase);
-  closeModal();
+  confirmDelete(function(){ delEv(modalEditId, modalPhase); closeModal(); });
 }
 
 function delEv(id, phase) {
@@ -2159,6 +2159,21 @@ function delEv(id, phase) {
   showToast('Event deleted', 'hk');
 }
 
+var _delCb = null;
+function confirmDelete(cb) {
+  _delCb = cb;
+  var ov = document.getElementById('del-confirm-overlay');
+  ov.classList.add('open');
+  fixModalViewport('del-confirm-overlay');
+}
+function _delConfirm() {
+  document.getElementById('del-confirm-overlay').classList.remove('open');
+  if (_delCb) { var cb = _delCb; _delCb = null; cb(); }
+}
+function _delCancel() {
+  document.getElementById('del-confirm-overlay').classList.remove('open');
+  _delCb = null;
+}
 function closeModal() { document.getElementById('moverlay').classList.remove('open'); releaseModalViewport(); }
 
 /* ── VIEWPORT SCROLL FIX FOR GOOGLE SITES IFRAME ──
@@ -2844,6 +2859,16 @@ function handleContactMOverlay(e) {
   if (e.target === document.getElementById('contact-moverlay')) { closeContactModal(); releaseModalViewport(); }
 }
 </script>
+
+<div class="moverlay" id="del-confirm-overlay">
+  <div class="mcard" style="max-width:320px;padding:28px 24px;text-align:center">
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.6;color:var(--ink)">Confirm to delete — this cannot be undone?</p>
+    <div style="display:flex;gap:12px;justify-content:center">
+      <button class="fbtn ghost" onclick="_delCancel()">Cancel</button>
+      <button class="fbtn" style="color:#c62828;border:.5px solid rgba(198,40,40,.3);background:transparent;font-family:var(--body);font-size:13px;padding:10px 20px;border-radius:var(--r-sm);cursor:pointer" onclick="_delConfirm()">Delete</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
