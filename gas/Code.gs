@@ -173,9 +173,9 @@ function writeActions_(ss, actions) {
   sh.clearContents();
   var hdr  = ['ID','Task','Owner','Due Date','Phase','Status','Priority'];
   var rows = [hdr];
-  actions.forEach(function(a) {
+  actions.forEach(function(a, idx) {
     rows.push([
-      a.id||'', a.text||'', a.owner||'Delegate', a.due||'TBD',
+      idx + 1, a.text||'', a.owner||'Delegate', a.due||'TBD',
       a.phase==='hk'?'Hong Kong':'Canton Fair',
       a.done?'Done':'Open',
       a.priority||'medium'
@@ -352,10 +352,10 @@ function readActions_(ss) {
   var data = sh.getDataRange().getValues();
   if (data.length < 2) return [];
   return data.slice(1)
-    .filter(function(r){ return r[0] !== ''; })
-    .map(function(r) {
+    .filter(function(r){ return r[1] !== ''; })
+    .map(function(r, idx) {
       return {
-        id:       Number(r[0]) || 0,
+        id:       idx + 1,
         text:     String(r[1] || ''),
         owner:    String(r[2] || 'Delegate'),
         due:      String(r[3] || 'TBD'),

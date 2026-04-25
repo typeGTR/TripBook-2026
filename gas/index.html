@@ -2593,7 +2593,7 @@ function syncFromSheets() {
       }
       if (result.HK_EVENTS  && result.HK_EVENTS.length)  HK_EVENTS = result.HK_EVENTS;
       if (result.CF_EVENTS  && result.CF_EVENTS.length)  CF_EVENTS = result.CF_EVENTS;
-      if (result.ACTIONS    && result.ACTIONS.length)    ACTIONS   = result.ACTIONS;
+      if (result.ACTIONS    && result.ACTIONS.length)    ACTIONS   = result.ACTIONS.map(function(a,i){return Object.assign({},a,{id:i+1});});
       if (result.CONTACTS   && result.CONTACTS.length)   CONTACTS  = result.CONTACTS;
       if (result.LOGISTICS) {
         LOGISTICS.flights = result.LOGISTICS.flights || LOGISTICS.flights;
