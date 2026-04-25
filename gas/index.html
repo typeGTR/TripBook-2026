@@ -1881,7 +1881,7 @@ function renderContacts() {
     el.innerHTML = '<div class="empty" style="grid-column:1/-1">No contacts yet. Tap + Add Contact to create one.</div>';
     return;
   }
-  el.innerHTML = CONTACTS.map(c => {
+  el.innerHTML = [...CONTACTS].reverse().map(c => {
     const initials = c.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
     const col = c.bg || avatarColor(c.name);
     const extraLines = [
@@ -1926,8 +1926,9 @@ function renderActions() {
         </div>
       </div>`).join('') : '<div class="empty">All clear — no open actions.</div>';
   };
-  renderList(ACTIONS.filter(a=>!a.done), document.getElementById('ov-actions'));
-  renderList(ACTIONS, document.getElementById('all-actions'));
+  const reversed = [...ACTIONS].reverse();
+  renderList(reversed.filter(a=>!a.done), document.getElementById('ov-actions'));
+  renderList(reversed, document.getElementById('all-actions'));
 }
 
 let logModalId = null;
