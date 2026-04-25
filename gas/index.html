@@ -189,16 +189,20 @@ body {
 ═══════════════════════════════════════════════ */
 .live-bar {
   background: #0d1f33;
-  padding: 7px 18px;
+  padding: 7px 14px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-size: 12px;
   color: rgba(255,255,255,0.5);
   position: sticky;
   top: 0;
   z-index: 200;
   border-bottom: 1px solid rgba(255,255,255,0.05);
+  flex-wrap: wrap;
+}
+.live-left {
+  display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0;
 }
 .live-pulse {
   width: 6px; height: 6px;
@@ -209,15 +213,16 @@ body {
 }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.85)} }
 .live-bar-right {
-  margin-left: auto;
   display: flex;
-  gap: 6px;
+  gap: 5px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .lbtn {
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 4px 9px;
+  padding: 5px 10px;
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.15);
   background: transparent;
@@ -228,8 +233,16 @@ body {
   cursor: pointer;
   font-family: var(--body);
   transition: all .15s;
+  white-space: nowrap;
 }
 .lbtn:hover { background: rgba(255,255,255,0.08); color: #fff; }
+/* On mobile hide button text labels — show icons only */
+@media(max-width:540px) {
+  .lbtn-txt { display: none; }
+  #viewcount, .live-sep { display: none; }
+  .live-bar { padding: 6px 12px; gap: 5px; }
+  .lbtn { padding: 6px 8px; }
+}
 .gcal-badge {
   width: 13px; height: 13px;
   background: #fff;
@@ -1098,16 +1111,18 @@ body.modal-open {
 
 <!-- ═══════════════════ LIVE BAR ═══════════════════ -->
 <div class="live-bar">
-  <div class="live-pulse"></div>
-  <span>Live · Updated <span id="ts">now</span></span>
-  <span style="opacity:.3;margin:0 2px">|</span>
-  <span id="viewcount">1 partner viewing</span>
+  <div class="live-left">
+    <div class="live-pulse"></div>
+    <span>Live · <span id="ts">now</span></span>
+    <span class="live-sep" style="opacity:.3">|</span>
+    <span id="viewcount">1 partner viewing</span>
+  </div>
   <div class="live-bar-right">
     <span class="save-chip" id="save-chip" title="Local save status">● Local</span>
-    <button class="lbtn" onclick="exportICS('google')"><div class="gcal-badge">G</div>Google Cal</button>
-    <button class="lbtn" onclick="exportICS('ios')">📅 iOS Cal</button>
-    <button class="lbtn" onclick="doExportExcel()">⬇ Excel</button>
-    <button class="lbtn lbtn-drive" id="drive-btn" onclick="openDrivePanel()" title="Google Drive Sync">☁ Drive</button>
+    <button class="lbtn" onclick="exportICS('google')"><div class="gcal-badge">G</div><span class="lbtn-txt">Google Cal</span></button>
+    <button class="lbtn" onclick="exportICS('ios')">📅 <span class="lbtn-txt">iOS Cal</span></button>
+    <button class="lbtn" onclick="doExportExcel()">⬇ <span class="lbtn-txt">Excel</span></button>
+    <button class="lbtn lbtn-drive" id="drive-btn" onclick="openDrivePanel()">☁ <span class="lbtn-txt">Drive</span></button>
   </div>
 </div>
 
